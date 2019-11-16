@@ -12,15 +12,15 @@ export default function Login(props) {
   }
 
   async function handleSubmit(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  try {
-    await Auth.signIn(email, password);
-    alert("Logged in");
-  } catch (e) {
-    alert(e.message);
+    try {
+      await Auth.signIn(email, password);
+      props.userHasAuthenticated(true);
+    } catch (e) {
+      alert(e.message);
+    }
   }
-}
 
   return (
     <div className="Login">
