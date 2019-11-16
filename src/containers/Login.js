@@ -26,8 +26,16 @@ export default function Login(props) {
       props.userHasAuthenticated(true);
       props.history.push("/");
     } catch (e) {
-      alert(e.message);
-      setIsLoading(false);
+      if(e.name === 'UserNotConfirmedException') {
+        await Auth.resendSignUp(fields.email);
+        alert("Please confirm your email. Resending confirmation to " + fields.email);
+        setIsLoading(false);
+        props.setNewUser({user: fields.email, userConfirmed: false});
+        props.history.push("/signup");
+      } else {
+        alert(e.message);
+        setIsLoading(false);
+      }
     }
   }
 

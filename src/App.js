@@ -10,6 +10,7 @@ import { Auth } from "aws-amplify";
 function App(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [newUser, setNewUser] = useState(null);
 
   useEffect(() => {
     onLoad();
@@ -61,7 +62,7 @@ function App(props) {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <Routes appProps={{ isAuthenticated, userHasAuthenticated }} />
+      <Routes appProps={{ isAuthenticated, userHasAuthenticated, newUser, setNewUser }} />
     </div>
   );
 }
