@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import "./App.css";
 import Routes from "./Routes";
@@ -31,8 +31,8 @@ function App(props) {
 
   async function handleLogout() {
     await Auth.signOut();
-
     userHasAuthenticated(false);
+    props.history.push("/login");
   }
 
   return (
@@ -41,7 +41,7 @@ function App(props) {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Scratch</Link>
+            <Link to="/">MTGML</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -66,4 +66,4 @@ function App(props) {
   );
 }
 
-export default App;
+export default withRouter(App);
