@@ -1,5 +1,6 @@
 export default {
   MAX_ATTACHMENT_SIZE: 5000000,
+  STRIPE_KEY: "pk_test_Y0iTsszHSlEHYP6gGfxsRUwX00S1UEqgpK",
   s3: {
     REGION: "us-east-1",
     BUCKET: "mtgml"
@@ -13,5 +14,5 @@ export default {
     USER_POOL_ID: "us-east-1_wmyRRMMHK",
     APP_CLIENT_ID: "6ndt0ouekm6vm3n1tvf8hl380k",
     IDENTITY_POOL_ID: "us-east-1:c586e093-4798-407d-b418-24dffc309022"
-  }
+  },
 };

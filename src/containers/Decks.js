@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { API, Storage } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
+import { s3Upload } from "../libs/awsLib";
 import config from "../config";
 import "./Decks.css";
 
@@ -48,6 +49,12 @@ function handleFileChange(event) {
   file.current = event.target.files[0];
 }
 
+function saveDeck(deck) {
+  return API.put("decks", `/decks/${props.match.params.id}`, {
+    body: deck
+  });
+}
+
 async function handleSubmit(event) {
   let attachment;
 
@@ -62,6 +69,25 @@ async function handleSubmit(event) {
   }
 
   setIsLoading(true);
+
+  try {
+    if (file.current) {
+      attachment = await s3Upload(file.current);
+    }
+
+    await saveDeck({
+      content,
+      attachment: attachment || deck.attachment
+    });
+    props.history.push("/");
+  } catch (e) {
+    alert(e);
+    setIsLoading(false);
+  }
+}
+
+function deleteDeck() {
+  return API.del("decks", `/decks/${props.match.params.id}`);
 }
 
 async function handleDelete(event) {
@@ -76,6 +102,14 @@ async function handleDelete(event) {
   }
 
   setIsDeleting(true);
+
+  try {
+    await deleteDeck();
+    props.history.push("/");
+  } catch (e) {
+    alert(e);
+    setIsDeleting(false);
+  }
 }
 
 return (
