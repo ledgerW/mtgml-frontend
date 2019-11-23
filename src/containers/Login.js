@@ -24,7 +24,6 @@ export default function Login(props) {
     try {
       await Auth.signIn(fields.email, fields.password);
       props.userHasAuthenticated(true);
-      props.history.push("/");
     } catch (e) {
       if(e.name === 'UserNotConfirmedException') {
         await Auth.resendSignUp(fields.email);
