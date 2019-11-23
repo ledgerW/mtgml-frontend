@@ -23,6 +23,8 @@ export default function Settings(props) {
   setIsLoading(true);
 
   try {
+    console.log(storage)
+    console.log(token)
     await billUser({
       storage,
       source: token.id
