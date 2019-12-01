@@ -4,6 +4,7 @@ import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
 import { Auth } from "aws-amplify";
+import { Link } from "react-router-dom";
 
 export default function Login(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,6 +59,7 @@ export default function Login(props) {
             type="password"
           />
         </FormGroup>
+        <Link to="/login/reset">Forgot password?</Link>
         <LoaderButton
           block
           type="submit"
