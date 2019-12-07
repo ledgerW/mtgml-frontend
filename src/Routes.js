@@ -6,6 +6,7 @@ import Signup from "./containers/Signup";
 import NewDeck from "./containers/NewDeck";
 import Decks from "./containers/Decks";
 import Settings from "./containers/Settings";
+import ChangePassword from "./containers/ChangePassword";
 import NotFound from "./containers/NotFound";
 import AppliedRoute from "./components/AppliedRoute";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
@@ -20,6 +21,7 @@ export default function Routes({ appProps }) {
       <UnauthenticatedRoute path="/login/reset" exact component={ResetPassword} appProps={appProps} />
       <UnauthenticatedRoute path="/signup" exact component={Signup} appProps={appProps} />
       <AuthenticatedRoute path="/settings" exact component={Settings} appProps={appProps} />
+      <AuthenticatedRoute path="/settings/password" exact component={ChangePassword} appProps={appProps} />
       <AuthenticatedRoute path="/decks/new" exact component={NewDeck} appProps={appProps} />
       <AuthenticatedRoute path="/decks/:id" exact component={Decks} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }

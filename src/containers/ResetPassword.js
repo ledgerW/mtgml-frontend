@@ -145,7 +145,7 @@ export default class ResetPassword extends Component {
           disabled={!this.validateResetForm()}
         >
           Comfirm
-          </LoaderButton>
+        </LoaderButton>
       </form>
     );
   }

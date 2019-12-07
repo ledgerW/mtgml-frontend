@@ -3,9 +3,9 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
-import "./BillingForm.css";
+import "./PaymentForm.css";
 
-function BillingForm({ isLoading, onSubmit, ...props }) {
+function PaymentForm({ isLoading, onSubmit, ...props }) {
   const [fields, handleFieldChange] = useFormFields({
     name: "",
     storage: ""
@@ -36,7 +36,7 @@ function BillingForm({ isLoading, onSubmit, ...props }) {
   }
 
   return (
-    <form className="BillingForm" onSubmit={handleSubmitClick}>
+    <form className="PaymentForm" onSubmit={handleSubmitClick}>
       <FormGroup bsSize="large" controlId="storage">
         <ControlLabel>Storage</ControlLabel>
         <FormControl
@@ -78,4 +78,4 @@ function BillingForm({ isLoading, onSubmit, ...props }) {
   );
 }
 
-export default injectStripe(BillingForm);
+export default injectStripe(PaymentForm);
