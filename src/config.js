@@ -1,5 +1,6 @@
 const dev = {
   STRIPE_KEY: "pk_test_Y0iTsszHSlEHYP6gGfxsRUwX00S1UEqgpK",
+  DOMAIN: "https://mtgml.netlify.com/",
   s3: {
     REGION: "us-east-1",
     BUCKET: "mtgml-dev-attachmentsbucket-1x9s74kqwhnlh"
@@ -18,6 +19,7 @@ const dev = {
 
 const prod = {
   STRIPE_KEY: "pk_test_Y0iTsszHSlEHYP6gGfxsRUwX00S1UEqgpK",
+  DOMAIN: "https://mtgml.netlify.com/",
   s3: {
     REGION: "us-east-1",
     BUCKET: "mtgml-prod-attachmentsbucket-pdcw0jea0tga"
@@ -35,9 +37,13 @@ const prod = {
 };
 
 // Default to dev if not set
-const config = process.env.REACT_APP_STAGE === 'prod'
+const config = process.env.REACT_APP_STAGE === "prod"
   ? prod
   : dev;
+
+config.DOMAIN = process.env.REACT_APP_USERNAME === "lwest"
+  ? "http://localhost:3000/"
+  : config.DOMAIN;
 
 export default {
   // Add common config values here

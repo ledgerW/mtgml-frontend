@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { API } from "aws-amplify";
+import config from "../config";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import PaymentForm from "../components/PaymentForm";
-import config from "../config";
 import "./Payment.css";
 
 export default function Payment(props) {

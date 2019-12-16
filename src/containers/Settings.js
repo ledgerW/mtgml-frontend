@@ -22,20 +22,12 @@ export default function Settings(props) {
           Change Password
         </LoaderButton>
       </LinkContainer>
-      <LinkContainer to="/settings/payment">
+      <LinkContainer to="/settings/subscribe">
         <LoaderButton
           block
           bsSize="large"
         >
-          Update Payment
-        </LoaderButton>
-      </LinkContainer>
-      <LinkContainer to="/settings/membership">
-        <LoaderButton
-          block
-          bsSize="large"
-        >
-          Update Membership Plan
+          Your Subscription
         </LoaderButton>
       </LinkContainer>
     </div>
