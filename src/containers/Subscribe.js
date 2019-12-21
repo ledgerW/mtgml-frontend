@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import config from "../config";
 import SubscribeForm from "../components/SubscribeForm";
-import "./Subscribe.css";
+//import "./Subscribe.css";
 
 export default function Subscribe(props) {
   const [isLoading, setIsLoading] = useState(false);

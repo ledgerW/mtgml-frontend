@@ -3,7 +3,7 @@ import { Auth } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
-import "./ChangePassword.css";
+//import "./ChangePassword.css";
 
 export default function ChangePassword(props) {
   const [fields, handleFieldChange] = useFormFields({

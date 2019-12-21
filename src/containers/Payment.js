@@ -3,7 +3,7 @@ import { API } from "aws-amplify";
 import config from "../config";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import PaymentForm from "../components/PaymentForm";
-import "./Payment.css";
+//import "./Payment.css";
 
 export default function Payment(props) {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+//import withTracker from "../withTracker";
 
 
 function querystring(name, url = window.location.href) {
@@ -19,17 +20,42 @@ function querystring(name, url = window.location.href) {
 }
 
 
-export default function UnauthenticatedRoute({ component: C, appProps, ...rest }) {
+export default function UnauthenticatedRoute({ component: C, component: Layout, appProps, ...rest }) {
   const redirect = querystring("redirect");
   return (
     <Route
       {...rest}
       render={props =>
         !appProps.isAuthenticated
-          ? <C {...props} {...appProps} />
+          ? (
+              <Layout {...props}>
+                <C {...props} {...appProps} />
+              </Layout>
+            )
           : <Redirect
               to={redirect === "" || redirect === null ? "/" : redirect}
-            />}
+            />
+      }
     />
   );
 }
+
+//export default function UnauthenticatedRoute({ component: C, component: Layout, appProps, ...rest }) {
+//  const redirect = querystring("redirect");
+//  return (
+//    <Route
+//      {...rest}
+//      render={withTracker(props =>
+//        !appProps.isAuthenticated
+//          ? (
+//              <Layout {...props}>
+//                <C {...props} {...appProps} />
+//              </Layout>
+//            )
+//          : <Redirect
+//              to={redirect === "" || redirect === null ? "/" : redirect}
+//            />
+//      )}
+//    />
+//  );
+//}

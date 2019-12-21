@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
-import "./Home.css";
+//import "./Home.css";
 
 export default function Home(props) {
   const [decks, setDecks] = useState([]);
@@ -53,7 +53,7 @@ export default function Home(props) {
 
   function renderLander() {
       return (
-        <div className="lander">
+        <div>
           <h1>MTGML</h1>
           <p>Understand your deck.</p>
           <p>Make it better.</p>
@@ -63,7 +63,7 @@ export default function Home(props) {
 
   function renderDecks() {
     return (
-      <div className="decks">
+      <div>
         <PageHeader>Your Decks</PageHeader>
         <ListGroup>
           {!isLoading && renderDecksList(decks)}
@@ -73,7 +73,7 @@ export default function Home(props) {
   }
 
   return (
-    <div className="Home">
+    <div>
       {props.isAuthenticated ? renderDecks() : renderLander()}
     </div>
   );

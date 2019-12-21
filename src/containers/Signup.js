@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
-import "./Signup.css";
+//import "./Signup.css";
 
 export default function Signup(props) {
   const [fields, handleFieldChange] = useFormFields({
