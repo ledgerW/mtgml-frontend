@@ -25,7 +25,7 @@ export default function UnauthenticatedRoute({ comps, appProps, ...rest }) {
   return (
     <Route
       {...rest}
-      components={props => {
+      component={props => {
         return (
           !appProps.isAuthenticated
             ? (
