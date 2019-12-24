@@ -19,26 +19,30 @@ export default function() {
       ]
     },
     {
-      title: "Header Nav",
+      title: 'Header Nav',
       htmlBefore: '<i class="material-icons">view_day</i>',
-      to: "/header-navigation"
-    },
-    {
-      title: "Icon Sidebar",
+      to: '/header_nav',
+    }, {
+      title: 'Icon Sidebar',
       htmlBefore: '<i class="material-icons">&#xE251;</i>',
-      to: "/icon-sidebar-nav"
+      to: '/icon_side_nav',
     },
     {
       title: "Components",
       htmlBefore: '<i class="material-icons">view_module</i>',
       items: [
         {
-          title: "Overview",
-          to: "/components-overview"
-        },
-        {
-          title: "Blog Posts",
-          to: "/blog-posts"
+          title: 'Overview',
+          htmlBefore: '<i class="material-icons">view_module</i>',
+          to: '/components',
+        }, {
+          title: 'Tables',
+          htmlBefore: '<i class="material-icons">table_chart</i>',
+          to: '/tables',
+        }, {
+          title: 'Blog Posts',
+          htmlBefore: '<i class="material-icons">vertical_split</i>',
+          to: '/blog_posts',
         }
       ]
     },
@@ -47,47 +51,50 @@ export default function() {
       htmlBefore: '<i class="material-icons">&#xE2C7;</i>',
       items: [
         {
-          title: "File Manager - List",
-          to: "/file-manager-list"
-        },
-        {
-          title: "File Manager - Cards",
-          to: "/file-manager-cards"
+          title: 'Files - List View',
+          to: '/file_manager_list',
+        }, {
+          title: 'Files - Cards View',
+          to: '/file_manager_cards',
         }
       ]
     },
     {
       title: "Transactions",
       htmlBefore: '<i class="material-icons"></i>',
-      to: "/transaction-history"
+      to: "/transaction_history"
     },
     {
       title: "User Account",
       htmlBefore: '<i class="material-icons">&#xE8B9;</i>',
       items: [
         {
-          title: "User Profile",
-          to: "/user-profile"
-        },
-        {
-          title: "Edit User Profile",
-          to: "/edit-user-profile"
-        },
-        {
-          title: "Login",
-          to: "/login"
-        },
-        {
-          title: "Register",
-          to: "/register"
-        },
-        {
-          title: "Forgot Password",
-          to: "/forgot-password"
-        },
-        {
-          title: "Reset Password",
-          to: "/reset-password"
+          title: 'User Profile',
+          to: '/profile',
+        }, {
+          title: 'Edit User Profile',
+          to: '/edit_profile',
+        }, {
+          title: 'Login',
+          to: '/login',
+        }, {
+          title: 'Sign Up',
+          to: '/signup',
+        }, {
+          title: 'Forgot Password',
+          to: '/login/reset',
+        }, {
+          title: 'Settings',
+          to: '/settings',
+        }, {
+          title: 'Change Password',
+          to: '/settings/password',
+        }, {
+          title: 'Change Email',
+          to: '/settings/email',
+        }, {
+          title: 'Subscription',
+          to: '/settings/subscribe',
         }
       ]
     },

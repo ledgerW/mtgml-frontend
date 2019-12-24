@@ -29,7 +29,6 @@ import IconSidebarView from "./containers/IconSidebar";
 
 // Route Views (original)
 import Home from "./containers/Home";
-import LoginOrig from "./containers/LoginOrig";
 import Signup from "./containers/Signup";
 import NewDeck from "./containers/NewDeck";
 import Decks from "./containers/Decks";
@@ -56,7 +55,6 @@ export default function Routes({ appProps }) {
     <Switch>
       <AppliedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} appProps={appProps} />
       <UnauthenticatedRoute path="/login" exact comps={{layout: BlankIconSidebarLayout, container: Login}} appProps={appProps} />
-      <UnauthenticatedRoute path="/old_login" exact comps={{layout: BlankIconSidebarLayout, container: LoginOrig}} appProps={appProps} />
       <UnauthenticatedRoute path="/login/reset" exact comps={{layout: BlankIconSidebarLayout, container: ForgotPassword}} appProps={appProps} />
       <UnauthenticatedRoute path="/signup" exact comps={{layout: BlankIconSidebarLayout, container: Register}} appProps={appProps} />
       <AuthenticatedRoute path="/dashboard" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
@@ -73,7 +71,7 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/components" exact comps={{layout: DefaultLayout, container: ComponentsOverview}} appProps={appProps} />
       <AuthenticatedRoute path="/tables" exact comps={{layout: DefaultLayout, container: Tables}} appProps={appProps} />
       <AuthenticatedRoute path="/blog_posts" exact comps={{layout: DefaultLayout, container: BlogPosts}} appProps={appProps} />
-      <AuthenticatedRoute path="/header_nav" exact comps={{layout: DefaultLayout, container: HeaderNavigation}} appProps={appProps} />
+      <AuthenticatedRoute path="/header_nav" exact comps={{layout: HeaderNavigation, container: HeaderNav}} appProps={appProps} />
       <AuthenticatedRoute path="/icon_side_nav" exact comps={{layout: IconSidebar, container: IconSidebarView}} appProps={appProps} />
       <AuthenticatedRoute path="/settings" exact comps={{layout: BlankIconSidebarLayout, container: Settings}} appProps={appProps} />
       <AuthenticatedRoute path="/settings/password" exact comps={{layout: BlankIconSidebarLayout, container: ChangePassword}} appProps={appProps} />

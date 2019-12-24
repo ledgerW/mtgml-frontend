@@ -31,9 +31,6 @@ export default function () {
         title: 'Edit User Profile',
         to: '/edit_profile',
       }, {
-        title: 'Old Login',
-        to: '/old_login',
-      }, {
         title: 'Login',
         to: '/login',
       }, {

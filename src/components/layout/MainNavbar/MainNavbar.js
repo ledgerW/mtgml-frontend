@@ -9,7 +9,7 @@ import NavbarToggle from "./NavbarToggle";
 
 import { LAYOUT_TYPES } from "../../../utils/constants";
 
-const MainNavbar = ({ layout, stickyTop }) => {
+const MainNavbar = ({ layout, stickyTop, appProps, ...rest }) => {
   const isHeaderNav = layout === LAYOUT_TYPES.HEADER_NAVIGATION;
   const classes = classNames(
     "main-navbar",
@@ -37,9 +37,9 @@ const MainNavbar = ({ layout, stickyTop }) => {
               </div>
             </NavbarBrand>
           )}
-          <NavbarSearch />
-          <NavbarNav />
-          <NavbarToggle />
+          <NavbarSearch {...appProps}/>
+          <NavbarNav {...appProps}/>
+          <NavbarToggle {...appProps}/>
         </Navbar>
       </Container>
     </div>
