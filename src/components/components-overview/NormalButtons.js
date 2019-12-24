@@ -28,6 +28,9 @@ const NormalButtons = () => (
       <Button theme="light" className="mb-2 mr-1">
         Light
       </Button>
+      <Button theme="royal-blue" className="mb-2 mr-1">
+        Royal Blue
+      </Button>
     </Col>
   </Row>
 );

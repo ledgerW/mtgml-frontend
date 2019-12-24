@@ -20,42 +20,24 @@ function querystring(name, url = window.location.href) {
 }
 
 
-export default function UnauthenticatedRoute({ component: C, component: Layout, appProps, ...rest }) {
+export default function UnauthenticatedRoute({ comps, appProps, ...rest }) {
   const redirect = querystring("redirect");
   return (
     <Route
       {...rest}
-      render={props =>
-        !appProps.isAuthenticated
-          ? (
-              <Layout {...props}>
-                <C {...props} {...appProps} />
-              </Layout>
-            )
-          : <Redirect
-              to={redirect === "" || redirect === null ? "/" : redirect}
-            />
-      }
+      components={props => {
+        return (
+          !appProps.isAuthenticated
+            ? (
+                <comps.layout {...props} {...appProps}>
+                  <comps.container {...props} {...appProps} />
+                </comps.layout>
+              )
+            : <Redirect
+                to={redirect === "" || redirect === null ? "/" : redirect}
+              />
+        );
+      }}
     />
   );
 }
-
-//export default function UnauthenticatedRoute({ component: C, component: Layout, appProps, ...rest }) {
-//  const redirect = querystring("redirect");
-//  return (
-//    <Route
-//      {...rest}
-//      render={withTracker(props =>
-//        !appProps.isAuthenticated
-//          ? (
-//              <Layout {...props}>
-//                <C {...props} {...appProps} />
-//              </Layout>
-//            )
-//          : <Redirect
-//              to={redirect === "" || redirect === null ? "/" : redirect}
-//            />
-//      )}
-//    />
-//  );
-//}

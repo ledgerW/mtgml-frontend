@@ -14,7 +14,7 @@ const Sliders = () => (
         tooltips
       />
       <Slider
-        theme="info"
+        theme="royal-blue"
         className="my-4"
         connect={[false, true]}
         start={[15]}

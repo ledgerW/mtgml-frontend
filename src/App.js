@@ -4,7 +4,7 @@ import Routes from "./Routes";
 import { Auth } from "aws-amplify";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
+import "./assets/main.scss";
 
 
 function App(props) {

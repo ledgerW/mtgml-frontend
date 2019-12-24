@@ -7,19 +7,19 @@ const ProgressBars = () => (
       <strong className="text-muted d-block mb-3">Progress Bars</strong>
       <Progress style={{ height: "5px" }} value={50} className="mb-3" />
       <Progress
-        theme="success"
+        theme="royal-blue"
         style={{ height: "5px" }}
         className="mb-3"
         value={40}
       />
       <Progress
-        theme="info"
+        theme="salmon"
         style={{ height: "5px" }}
         className="mb-3"
         value={60}
       />
       <Progress
-        theme="danger"
+        theme="warning"
         style={{ height: "5px" }}
         className="mb-3"
         value={80}

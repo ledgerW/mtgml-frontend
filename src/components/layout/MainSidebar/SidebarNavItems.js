@@ -34,11 +34,18 @@ class SidebarNavItems extends React.Component {
     const { navItems: items } = this.state;
     return (
       <div className="nav-wrapper">
-        <Nav className="nav--no-borders flex-column">
-          {items.map((item, idx) => (
-            <SidebarNavItem key={idx} item={item} />
-          ))}
-        </Nav>
+        {items.map((nav, idx) => (
+          <div key={idx}>
+            <h6 className="main-sidebar__nav-title">{nav.title}</h6>
+            {typeof nav.items !== "undefined" && nav.items.length && (
+              <Nav className="nav--no-borders flex-column">
+                {nav.items.map((item, idx) => (
+                  <SidebarNavItem key={idx} item={item} />
+                ))}
+              </Nav>
+            )}
+          </div>
+        ))}
       </div>
     )
   }

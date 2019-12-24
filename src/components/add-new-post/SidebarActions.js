@@ -48,7 +48,7 @@ const SidebarActions = ({ title }) => (
             <strong className="text-warning">Ok</strong>
           </span>
         </ListGroupItem>
-        <ListGroupItem className="d-flex px-3 border-0">
+        <ListGroupItem className="d-flex px-3">
           <Button outline theme="accent" size="sm">
             <i className="material-icons">save</i> Save Draft
           </Button>

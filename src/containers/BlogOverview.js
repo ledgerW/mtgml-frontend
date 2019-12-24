@@ -20,7 +20,7 @@ const BlogOverview = ({ smallStats }) => (
     {/* Small Stats Blocks */}
     <Row>
       {smallStats.map((stats, idx) => (
-        <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
+        <Col className="col-lg mb-4" md="6" sm="6" key={idx}>
           <SmallStats
             id={`small-stats-${idx}`}
             variation="1"
@@ -38,7 +38,7 @@ const BlogOverview = ({ smallStats }) => (
 
     <Row>
       {/* Users Overview */}
-      <Col lg="8" md="12" sm="12" className="mb-4">
+      <Col lg="8" md="6" sm="12" className="mb-4">
         <UsersOverview />
       </Col>
 
@@ -46,7 +46,9 @@ const BlogOverview = ({ smallStats }) => (
       <Col lg="4" md="6" sm="12" className="mb-4">
         <UsersByDevice />
       </Col>
+    </Row>
 
+    <Row>
       {/* New Draft */}
       <Col lg="4" md="6" sm="12" className="mb-4">
         <NewDraft />
@@ -80,7 +82,6 @@ BlogOverview.defaultProps = {
       percentage: "4.7%",
       increase: true,
       chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: "6", sm: "6" },
       datasets: [
         {
           label: "Today",
@@ -98,7 +99,6 @@ BlogOverview.defaultProps = {
       percentage: "12.4",
       increase: true,
       chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: "6", sm: "6" },
       datasets: [
         {
           label: "Today",
@@ -117,7 +117,6 @@ BlogOverview.defaultProps = {
       increase: false,
       decrease: true,
       chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: "4", sm: "6" },
       datasets: [
         {
           label: "Today",
@@ -136,7 +135,6 @@ BlogOverview.defaultProps = {
       increase: false,
       decrease: true,
       chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: "4", sm: "6" },
       datasets: [
         {
           label: "Today",
@@ -155,7 +153,6 @@ BlogOverview.defaultProps = {
       increase: false,
       decrease: true,
       chartLabels: [null, null, null, null, null, null, null],
-      attrs: { md: "4", sm: "6" },
       datasets: [
         {
           label: "Today",

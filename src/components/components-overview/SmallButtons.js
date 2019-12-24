@@ -28,6 +28,15 @@ const SmallButtons = () => (
       <Button size="sm" theme="white" className="mb-2 mr-1">
         White
       </Button>
+      <Button size="sm" theme="royal-blue" className="mb-2 mr-1">
+        Royal Blue
+      </Button>
+      <Button size="sm" theme="java" className="mb-2 mr-1">
+        Java
+      </Button>
+      <Button size="sm" theme="salmon" className="mb-2 mr-1">
+        Salmon
+      </Button>
     </Col>
   </Row>
 );

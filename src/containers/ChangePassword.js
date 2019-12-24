@@ -1,86 +1,68 @@
-import React, { useState } from "react";
-import { Auth } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
-import { useFormFields } from "../libs/hooksLib";
-//import "./ChangePassword.css";
+import React from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Form,
+  FormGroup,
+  FormInput,
+  Button
+} from "shards-react";
 
-export default function ChangePassword(props) {
-  const [fields, handleFieldChange] = useFormFields({
-    oldPassword: "",
-    password: "",
-    confirmPassword: ""
-  });
-  const [isChanging, setIsChanging] = useState(false);
+const ChangePassword = () => (
+  <Container fluid className="main-content-container h-100 px-4">
+    <Row noGutters className="h-100">
+      <Col lg="3" md="5" className="auth-form mx-auto my-auto">
+        <Card>
+          <CardBody>
+            {/* Logo */}
+            <img
+              className="auth-form__logo d-table mx-auto mb-3"
+              src={require("../images/shards-dashboards-logo.svg")}
+              alt="Shards Dashboards - Change Password Template"
+            />
 
-  function validateForm() {
-    return (
-      fields.oldPassword.length > 0 &&
-      fields.password.length > 0 &&
-      fields.password === fields.confirmPassword
-    );
-  }
+            {/* Title */}
+            <h5 className="auth-form__title text-center mb-4">
+              Change Password
+            </h5>
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+            {/* Form Fields */}
+            <Form>
+              <FormGroup>
+                <label htmlFor="exampleInputPassword1">Password</label>
+                <FormInput
+                  type="password"
+                  id="exampleInputPassword1"
+                  placeholder="Password"
+                  autoComplete="new-password"
+                />
+              </FormGroup>
+              <FormGroup>
+                <label htmlFor="exampleInputPassword2">Repeat Password</label>
+                <FormInput
+                  type="password"
+                  id="exampleInputPassword2"
+                  placeholder="Repeat Password"
+                  autoComplete="new-password"
+                />
+              </FormGroup>
+              <Button
+                pill
+                theme="accent"
+                className="d-table mx-auto"
+                type="submit"
+              >
+                Change Password
+              </Button>
+            </Form>
+          </CardBody>
+        </Card>
+      </Col>
+    </Row>
+  </Container>
+);
 
-    setIsChanging(true);
-
-    try {
-      const currentUser = await Auth.currentAuthenticatedUser();
-      await Auth.changePassword(
-        currentUser,
-        fields.oldPassword,
-        fields.password
-      );
-
-      alert("Your password has been successfully updated!");
-      props.history.push("/settings");
-    } catch (e) {
-      alert(e.message);
-      setIsChanging(false);
-    }
-  }
-
-  return (
-    <div className="ChangePassword">
-      <form onSubmit={handleSubmit}>
-        <FormGroup bsSize="large" controlId="oldPassword">
-          <ControlLabel>Old Password</ControlLabel>
-          <FormControl
-            type="password"
-            onChange={handleFieldChange}
-            value={fields.oldPassword}
-          />
-        </FormGroup>
-        <hr />
-        <FormGroup bsSize="large" controlId="password">
-          <ControlLabel>New Password</ControlLabel>
-          <FormControl
-            type="password"
-            onChange={handleFieldChange}
-            value={fields.password}
-          />
-        </FormGroup>
-        <FormGroup bsSize="large" controlId="confirmPassword">
-          <ControlLabel>Confirm Password</ControlLabel>
-          <FormControl
-            type="password"
-            onChange={handleFieldChange}
-            value={fields.confirmPassword}
-          />
-        </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          loadingText="Changing…"
-          disabled={!validateForm()}
-          isLoading={isChanging}
-        >
-        Change Password
-        </LoaderButton>
-      </form>
-    </div>
-  );
-}
+export default ChangePassword;

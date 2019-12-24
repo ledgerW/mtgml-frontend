@@ -2,31 +2,17 @@ import React from "react";
 import { Route } from "react-router-dom";
 //import withTracker from "../withTracker";
 
-import { DefaultLayout } from "../layouts";
-
-export default function AppliedRoute({ component: C, component: layout, appProps, ...rest }) {
+export default function AppliedRoute({ comps, appProps, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props => (
-        <DefaultLayout {...props}>
-          <C {...props} {...appProps} />
-        </DefaultLayout>
-      )}
+      component={props => {
+        return (
+          <comps.layout {...props} {...appProps}>
+            <comps.container {...props} {...appProps} />
+          </comps.layout>
+        );
+      }}
     />
   );
 }
-
-
-//export default function AppliedRoute({ component: C, component: Layout, appProps, ...rest }) {
-//  return (
-//    <Route
-//      {...rest}
-//      render={withTracker(props => (
-//        <Layout {...props}>
-//          <C {...props} {...appProps} />
-//        </Layout>
-//      ))}
-//    />
-//  );
-//}

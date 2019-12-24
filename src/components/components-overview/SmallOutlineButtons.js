@@ -28,6 +28,15 @@ const SmallOutlineButtons = () => (
       <Button outline size="sm" theme="light" className="mb-2 mr-1">
         Light
       </Button>
+      <Button outline size="sm" theme="royal-blue" className="mb-2 mr-1">
+        Royal Blue
+      </Button>
+      <Button outline size="sm" theme="java" className="mb-2 mr-1">
+        Java
+      </Button>
+      <Button outline size="sm" theme="salmon" className="mb-2 mr-1">
+        Salmon
+      </Button>
     </Col>
   </Row>
 );
