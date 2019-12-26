@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { API } from "aws-amplify";
 import config from "../config";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup } from "shards-react";
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./SubscribeForm.css";

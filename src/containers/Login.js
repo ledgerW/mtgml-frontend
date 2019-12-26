@@ -16,6 +16,7 @@ import {
 } from "shards-react";
 import { useFormFields } from "../libs/hooksLib";
 import { Auth } from "aws-amplify";
+import { Store, Dispatcher, Constants } from "../flux";
 
 
 export default function Login(props) {
@@ -36,13 +37,22 @@ export default function Login(props) {
 
     try {
       await Auth.signIn(fields.email, fields.password);
-      props.userHasAuthenticated(true);
+      Dispatcher.dispatch({
+        actionType: Constants.USER_AUTHENTICATION
+      });
+      props.history.push("/");
     } catch (e) {
       if(e.name === 'UserNotConfirmedException') {
         await Auth.resendSignUp(fields.email);
         alert("Please confirm your email. Resending confirmation to " + fields.email);
         setIsLoading(false);
-        props.setNewUser({user: fields.email, userConfirmed: false});
+        Dispatcher.dispatch({
+          actionType: Constants.NEW_USER,
+          payload: {
+            user: fields.email,
+            userConfirmed: false
+          }
+        });
         props.history.push("/signup");
       } else {
         alert(e.message);
@@ -109,8 +119,8 @@ export default function Login(props) {
 
           {/* Meta Details */}
           <div className="auth-form__meta d-flex mt-4">
-            <Link to="/forgot-password">Forgot your password?</Link>
-            <Link to="/register" className="ml-auto">
+            <Link to="/login/reset">Forgot your password?</Link>
+            <Link to="/signup" className="ml-auto">
               Create a new account?
             </Link>
           </div>

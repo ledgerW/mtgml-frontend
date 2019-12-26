@@ -5,6 +5,8 @@ import Constants from "./constants";
 import getSidebarNavItems from "../data/sidebar-nav-items";
 
 let _store = {
+  isAuthenticated: false,
+  newUser: null,
   menuVisible: false,
   navItems: getSidebarNavItems()
 };
@@ -14,6 +16,8 @@ class Store extends EventEmitter {
     super();
 
     this.registerToActions = this.registerToActions.bind(this);
+    this.userHasAuthenticated = this.userHasAuthenticated.bind(this);
+    this.setNewUser = this.setNewUser.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
     this.toggleSidebarDropdown = this.toggleSidebarDropdown.bind(this);
 
@@ -22,6 +26,12 @@ class Store extends EventEmitter {
 
   registerToActions({ actionType, payload }) {
     switch (actionType) {
+      case Constants.USER_AUTHENTICATION:
+        this.userHasAuthenticated();
+        break;
+      case Constants.NEW_USER:
+        this.setNewUser(payload);
+        break;
       case Constants.TOGGLE_SIDEBAR:
         this.toggleSidebar();
         break;
@@ -30,6 +40,14 @@ class Store extends EventEmitter {
         break;
       default:
     }
+  }
+
+  userHasAuthenticated() {
+    _store.isAuthenticated = !_store.isAuthenticated;
+  }
+
+  setNewUser(newUser) {
+    _store.newUser = newUser;
   }
 
   toggleSidebar() {
@@ -67,6 +85,14 @@ class Store extends EventEmitter {
 
     _store = newStore;
     this.emit(Constants.CHANGE);
+  }
+
+  isAuthenticated() {
+    return _store.isAuthenticated;
+  }
+
+  newUser() {
+    return _store.newUser;
   }
 
   getMenuState() {

@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { Store } from "../flux";
 //import withTracker from "../withTracker";
 
 
@@ -25,11 +26,11 @@ export default function UnauthenticatedRoute({ comps, appProps, ...rest }) {
   return (
     <Route
       {...rest}
-      component={props => {
+      component={(props, appProps) => {
         return (
-          !appProps.isAuthenticated
+          !Store.isAuthenticated()
             ? (
-                <comps.layout {...props} {...appProps}>
+                <comps.layout {...props} appProps={appProps}>
                   <comps.container {...props} {...appProps} />
                 </comps.layout>
               )

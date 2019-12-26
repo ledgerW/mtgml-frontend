@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from "react";
+import React, { useState } from "react";
+import { Auth } from "aws-amplify";
 import {
   Container,
   Row,
@@ -15,6 +16,9 @@ import {
   Button
 } from "shards-react";
 import { Link } from "react-router-dom";
+import { useFormFields } from "../libs/hooksLib";
+import { Store, Dispatcher, Constants } from "../flux";
+
 
 const Register = () => (
   <Container fluid className="main-content-container h-100 px-4">
@@ -78,32 +82,6 @@ const Register = () => (
               </Button>
             </Form>
           </CardBody>
-
-          {/* Social Icons */}
-          <CardFooter>
-            <ul className="auth-form__social-icons d-table mx-auto">
-              <li>
-                <a href="#">
-                  <i className="fab fa-facebook-f" />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="fab fa-twitter" />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="fab fa-github" />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i className="fab fa-google-plus-g" />
-                </a>
-              </li>
-            </ul>
-          </CardFooter>
         </Card>
 
         {/* Meta Details */}
