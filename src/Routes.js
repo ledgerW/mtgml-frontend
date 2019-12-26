@@ -55,7 +55,7 @@ export default function Routes({ appProps }) {
     <Switch>
       <AppliedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} appProps={appProps} />
       <UnauthenticatedRoute path="/login" exact comps={{layout: BlankIconSidebarLayout, container: Login}} appProps={appProps} />
-      <UnauthenticatedRoute path="/login/reset" exact comps={{layout: BlankIconSidebarLayout, container: ForgotPassword}} appProps={appProps} />
+      <UnauthenticatedRoute path="/login/reset" exact comps={{layout: BlankIconSidebarLayout, container: ResetPassword}} appProps={appProps} />
       <UnauthenticatedRoute path="/signup" exact comps={{layout: BlankIconSidebarLayout, container: Signup}} appProps={appProps} />
       <AuthenticatedRoute path="/dashboard" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
       <AuthenticatedRoute path="/ecommerce" exact comps={{layout: DefaultLayout, container: OnlineStore}} appProps={appProps} />

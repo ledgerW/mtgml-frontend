@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { Auth } from "aws-amplify";
 import { Link } from "react-router-dom";
 import {
-  HelpBlock,
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Form,
   FormGroup,
-  Glyphicon,
-  FormControl,
-  ControlLabel
-} from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+  FormInput,
+  Button
+} from "shards-react";
 
 
 export default class ResetPassword extends Component {
@@ -77,102 +80,177 @@ export default class ResetPassword extends Component {
     }
   };
 
+
   renderRequestCodeForm() {
     return (
-      <form onSubmit={this.handleSendCodeClick}>
-        <FormGroup bsSize="large" controlId="email">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          loadingText="Sending…"
-          isLoading={this.state.isSendingCode}
-          disabled={!this.validateCodeForm()}
-        >
-          Send Confirmation
-        </LoaderButton>
-      </form>
+      <Container fluid className="main-content-container h-100 px-4">
+        <Row noGutters className="h-100">
+          <Col lg="3" md="5" className="auth-form mx-auto my-auto">
+            <Card>
+              <CardBody>
+                {/* Logo */}
+                <img
+                  className="auth-form__logo d-table mx-auto mb-3"
+                  src={require("../images/shards-dashboards-logo.svg")}
+                  alt="Shards Dashboards - Register Template"
+                />
+
+                {/* Title */}
+                <h5 className="auth-form__title text-center mb-4">
+                  Reset Password
+                </h5>
+
+                {/* Form Fields */}
+                <Form onSubmit={this.handleSendCodeClick}>
+                  <FormGroup>
+                    <label htmlFor="email">Email address</label>
+                    <FormInput
+                      type="email"
+                      id="email"
+                      placeholder="Enter email"
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                    <small className="form-text text-muted text-center">
+                      You will receive an email with a verification code.
+                    </small>
+                  </FormGroup>
+                  <Button
+                    pill
+                    theme="accent"
+                    className="d-table mx-auto"
+                    type="submit"
+                    disabled={!this.validateCodeForm()}
+                  >
+                    Send Verification Code
+                  </Button>
+                </Form>
+              </CardBody>
+            </Card>
+
+            {/* Meta Details */}
+            <div className="auth-form__meta d-flex mt-4">
+              <Link to="/login" className="mx-auto">
+                Take me back to login.
+              </Link>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 
+
   renderConfirmationForm() {
     return (
-      <form onSubmit={this.handleConfirmClick}>
-        <FormGroup bsSize="large" controlId="code">
-          <ControlLabel>Confirmation Code</ControlLabel>
-          <FormControl
-            autoFocus
-            type="tel"
-            value={this.state.code}
-            onChange={this.handleChange}
-          />
-          <HelpBlock>
-            Please check your email ({this.state.email}) for the confirmation
-            code.
-          </HelpBlock>
-        </FormGroup>
-        <hr />
-        <FormGroup bsSize="large" controlId="password">
-          <ControlLabel>New Password</ControlLabel>
-          <FormControl
-            type="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup bsSize="large" controlId="confirmPassword">
-          <ControlLabel>Confirm Password</ControlLabel>
-          <FormControl
-            type="password"
-            onChange={this.handleChange}
-            value={this.state.confirmPassword}
-          />
-        </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          loadingText="Confirm…"
-          isLoading={this.state.isConfirming}
-          disabled={!this.validateResetForm()}
-        >
-          Comfirm
-        </LoaderButton>
-      </form>
+      <Container fluid className="main-content-container h-100 px-4">
+        <Row noGutters className="h-100">
+          <Col lg="3" md="5" className="auth-form mx-auto my-auto">
+            <Card>
+              <CardBody>
+                {/* Logo */}
+                <img
+                  className="auth-form__logo d-table mx-auto mb-3"
+                  src={require("../images/shards-dashboards-logo.svg")}
+                  alt="Shards Dashboards - Register Template"
+                />
+
+                {/* Title */}
+                <h5 className="auth-form__title text-center mb-4">
+                  Reset Password (Confirmation Code)
+                </h5>
+
+                {/* Form Fields */}
+                <Form onSubmit={this.handleConfirmClick}>
+                  <FormGroup>
+                    <label htmlFor="email">Confirmation Code</label>
+                    <FormInput
+                      type="tel"
+                      id="code"
+                      placeholder="Confirmation Code"
+                      value={this.state.code}
+                      onChange={this.handleChange}
+                    />
+                    <small className="form-text text-muted text-center">
+                    Please check your email ({this.state.email}) for the confirmation
+                    code.
+                    </small>
+                  </FormGroup>
+                  <FormGroup>
+                    <label htmlFor="email">New Password</label>
+                    <FormInput
+                      type="password"
+                      id="password"
+                      placeholder="New Password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <label htmlFor="email">Confirm Password</label>
+                    <FormInput
+                      type="confirmPassword"
+                      id="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={this.state.confirmPassword}
+                      onChange={this.handleChange}
+                    />
+                  </FormGroup>
+                  <Button
+                    pill
+                    theme="accent"
+                    className="d-table mx-auto"
+                    type="submit"
+                    disabled={!this.validateResetForm()}
+                  >
+                    Reset Password
+                  </Button>
+                </Form>
+              </CardBody>
+            </Card>
+
+            {/* Meta Details */}
+            <div className="auth-form__meta d-flex mt-4">
+              <Link to="/login" className="mx-auto">
+                Take me back to login.
+              </Link>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 
   renderSuccessMessage() {
     return (
-      <div className="success">
-        <Glyphicon glyph="ok" />
-        <p>Your password has been reset.</p>
-        <p>
-          <Link to="/login">
-            Click here to login with your new credentials.
-          </Link>
-        </p>
-      </div>
+      <Container fluid className="main-content-container h-100 px-4">
+        <Row noGutters className="h-100">
+          <Col lg="3" md="5" className="auth-form mx-auto my-auto">
+            <Card>
+              <CardBody>
+                <div className="success">
+                  <p>Your password has been reset.</p>
+                  <p>
+                    <Link to="/login">
+                      Click here to login with your new credentials.
+                    </Link>
+                  </p>
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 
   render() {
     return (
-      <div className="ResetPassword">
-        {!this.state.codeSent
-          ? this.renderRequestCodeForm()
-          : !this.state.confirmed
-            ? this.renderConfirmationForm()
-            : this.renderSuccessMessage()}
-      </div>
+      !this.state.codeSent
+        ? this.renderRequestCodeForm()
+        : !this.state.confirmed
+          ? this.renderConfirmationForm()
+          : this.renderSuccessMessage()
     );
   }
 }
