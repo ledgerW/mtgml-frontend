@@ -3,7 +3,7 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { API } from "aws-amplify";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
-import "./NewDeck.css";
+//import "./NewDeck.css";
 import { s3Upload } from "../libs/awsLib";
 
 export default function NewDeck(props) {
