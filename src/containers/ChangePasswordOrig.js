@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import { Container, Alert, Button, Form, FormInput, Row, Col } from "shards-react";
 import { useFormFields } from "../libs/hooksLib";
-import "./ChangePassword.css";
+
 
 export default function ChangePassword(props) {
   const [fields, handleFieldChange] = useFormFields({
@@ -12,6 +11,11 @@ export default function ChangePassword(props) {
     confirmPassword: ""
   });
   const [isChanging, setIsChanging] = useState(false);
+  const [isVisable, setIsVisable] = useState(false);
+
+  function dismiss() {
+    setIsVisable(false);
+  }
 
   function validateForm() {
     return (
@@ -34,8 +38,7 @@ export default function ChangePassword(props) {
         fields.password
       );
 
-      alert("Your password has been successfully updated!");
-      props.history.push("/settings");
+      setIsVisable(true);
     } catch (e) {
       alert(e.message);
       setIsChanging(false);
@@ -43,44 +46,56 @@ export default function ChangePassword(props) {
   }
 
   return (
-    <div className="ChangePassword">
-      <form onSubmit={handleSubmit}>
-        <FormGroup bsSize="large" controlId="oldPassword">
-          <ControlLabel>Old Password</ControlLabel>
-          <FormControl
-            type="password"
+    <Container fluid className="px-0">
+       <Alert theme="success" className="mb-0"
+              dismissible={dismiss}
+              open={isVisable}>
+       Your password has been successfully updated!
+       </Alert>
+
+    <Form onSubmit={handleSubmit}>
+      <Row form className="mx-4">
+        <Col md="4" className="form-group">
+          <label htmlFor="oldPassword">Old Password</label>
+          <FormInput
+            id="oldPassword"
+            type='password'
+            placeholder="Old Password"
             onChange={handleFieldChange}
             value={fields.oldPassword}
           />
-        </FormGroup>
-        <hr />
-        <FormGroup bsSize="large" controlId="password">
-          <ControlLabel>New Password</ControlLabel>
-          <FormControl
-            type="password"
+        </Col>
+        <Col md="4" className="form-group">
+          <label htmlFor="password">New Password</label>
+          <FormInput
+            id="password"
+            type='password'
+            placeholder="New Password"
             onChange={handleFieldChange}
             value={fields.password}
           />
-        </FormGroup>
-        <FormGroup bsSize="large" controlId="confirmPassword">
-          <ControlLabel>Confirm Password</ControlLabel>
-          <FormControl
-            type="password"
+        </Col>
+        <Col md="4" className="form-group">
+          <label htmlFor="confirmPassword">Repeat Password</label>
+          <FormInput
+            id="confirmPassword"
+            type='password'
+            placeholder="Repeat Password"
             onChange={handleFieldChange}
             value={fields.confirmPassword}
           />
-        </FormGroup>
-        <LoaderButton
-          block
+        </Col>
+        <Button
           type="submit"
-          bsSize="large"
-          loadingText="Changing…"
+          size="sm"
+          theme="accent"
+          className="d-table mx-auto mt-4"
           disabled={!validateForm()}
-          isLoading={isChanging}
         >
         Change Password
-        </LoaderButton>
-      </form>
-    </div>
+        </Button>
+      </Row>
+    </Form>
+    </Container>
   );
 }

@@ -25,29 +25,32 @@ import {
 import FormSectionTitle from "../components/edit-user-profile/FormSectionTitle";
 import ProfileBackgroundPhoto from "../components/edit-user-profile/ProfileBackgroundPhoto";
 import ChangeEmail from "../containers/ChangeEmail";
+import ChangePassword from "../containers/ChangePasswordOrig";
 
 class EditUserProfile extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      generalVis: false
     };
 
     this.handleGeneralSubmit = this.handleGeneralSubmit.bind(this);
+    this.dismiss = this.dismiss.bind(this);
+  }
+
+  dismiss() {
+    this.setState({ generalVis: false });
   }
 
   handleGeneralSubmit(e) {
     e.preventDefault();
+    this.setState({ generalVis: true });
   }
 
   render() {
     return (
       <div>
-        <Container fluid className="px-0">
-          <Alert theme="success" className="mb-0">
-            Ole! Your profile has been successfully updated!
-          </Alert>
-        </Container>
         <Container fluid className="main-content-container px-4">
           <Row>
             <Col lg="8" className="mx-auto mt-4">
@@ -57,6 +60,15 @@ class EditUserProfile extends React.Component {
                 <CardBody className="p-0">
 
                   {/* Form Section Title :: General */}
+
+                  <Container fluid className="px-0">
+                    <Alert theme="success" className="mb-0"
+                           dismissible={this.dismiss}
+                           open={this.state.generalVis}>
+                      Your profile has been successfully updated!
+                    </Alert>
+                  </Container>
+
                   <Form className="py-4" onSubmit={this.handleGeneralSubmit}>
                     <FormSectionTitle
                       title="General"
@@ -127,7 +139,6 @@ class EditUserProfile extends React.Component {
 
 
 
-
                       {/* User Profile Picture */}
                       <Col lg="4">
                         <label
@@ -138,7 +149,7 @@ class EditUserProfile extends React.Component {
                         </label>
                         <div className="edit-user-details__avatar m-auto">
                           <img
-                            src={require("../images/avatars/0.jpg")}
+                            src={require("../images/avatars/lw2134.jpg")}
                             alt="User Avatar"
                           />
                           <label className="edit-user-details__avatar__change">
@@ -164,94 +175,35 @@ class EditUserProfile extends React.Component {
 
                   <hr />
 
-                  {/* TEST Change Email */}
+                  {/* Change Email */}
                   <Row form className="mx-4">
                     <Col className="mb-3">
                       <h6 className="form-text m-0">Change Email</h6>
                       <p className="form-text text-muted m-0">
-                        Change your current email.
+                        Change your current email. A confirmation code will be sent to your new email address.
                       </p>
                     </Col>
                   </Row>
 
-                  <Row form className="mx-4">
-                    {/* Change Email :: New Email */}
-                    <Col md="4" className="form-group">
-                      <ChangeEmail></ChangeEmail>
-                    </Col>
-                  </Row>
+                  <ChangeEmail></ChangeEmail>
 
                   <hr />
 
-                    {/* Change Email */}
-                    <Row form className="mx-4">
-                      <Col className="mb-3">
-                        <h6 className="form-text m-0">Change Email</h6>
-                        <p className="form-text text-muted m-0">
-                          Change your current email.
-                        </p>
-                      </Col>
-                    </Row>
 
-                    <Row form className="mx-4">
-                      {/* Change Email :: New Email */}
-                      <Col md="4" className="form-group">
-                        <label htmlFor="newEmail">New Email</label>
-                        <FormInput
-                          id="newEmail"
-                          placeholder="New Email"
-                          onChange={() => {}}
-                        />
-                      </Col>
-                    </Row>
+                  {/* Change Password */}
+                  <Row form className="mx-4">
+                    <Col className="mb-3">
+                      <h6 className="form-text m-0">Change Password</h6>
+                      <p className="form-text text-muted m-0">
+                        Change your current password.
+                      </p>
+                    </Col>
+                  </Row>
 
-                    <hr />
-
-                    {/* Change Password */}
-                    <Row form className="mx-4">
-                      <Col className="mb-3">
-                        <h6 className="form-text m-0">Change Password</h6>
-                        <p className="form-text text-muted m-0">
-                          Change your current password.
-                        </p>
-                      </Col>
-                    </Row>
-
-                    <Row form className="mx-4">
-                      {/* Change Password :: Old Password */}
-                      <Col md="4" className="form-group">
-                        <label htmlFor="oldPassword">Old Password</label>
-                        <FormInput
-                          id="oldPassword"
-                          placeholder="Old Password"
-                          onChange={() => {}}
-                        />
-                      </Col>
-
-                      {/* Change Password :: New Password */}
-                      <Col md="4" className="form-group">
-                        <label htmlFor="newPassword">New Password</label>
-                        <FormInput
-                          id="newPassword"
-                          placeholder="New Password"
-                          onChange={() => {}}
-                        />
-                      </Col>
-
-                      {/* Change Password :: Repeat New Password */}
-                      <Col md="4" className="form-group">
-                        <label htmlFor="repeatNewPassword">
-                          Repeat New Password
-                        </label>
-                        <FormInput
-                          id="repeatNewPassword"
-                          placeholder="Old Password"
-                          onChange={() => {}}
-                        />
-                      </Col>
-                    </Row>
+                  <ChangePassword></ChangePassword>
 
                 </CardBody>
+                <CardFooter></CardFooter>
               </Card>
             </Col>
           </Row>

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
-import { Button } from "shards-react";
-import {HelpBlock, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
-import LoaderButton from "../components/LoaderButton";
+import { Container, Button, Form, FormInput, Row, Col, Alert } from "shards-react";
 import { useFormFields } from "../libs/hooksLib";
 
 
@@ -16,6 +14,7 @@ export default function ChangeEmail(props) {
   const [isSendingCode, setIsSendingCode] = useState(false);
   const [emailVerified, setEmailVerified] = useState(true);
   const [userEmail, setUserEmail] = useState("");
+  const [isVisable, setIsVisable] = useState(false);
 
   useEffect(() => {
     async function onLoad() {
@@ -34,6 +33,10 @@ export default function ChangeEmail(props) {
 
     onLoad();
   }, []);
+
+  function dismiss() {
+    setIsVisable(false);
+  }
 
   function validatEmailForm() {
     return fields.email.length > 0;
@@ -78,13 +81,10 @@ export default function ChangeEmail(props) {
     event.preventDefault();
 
     setIsConfirming(true);
-
+    setIsVisable(true);
     try {
       await Auth.verifyCurrentUserAttributeSubmit("email", fields.code);
-
-      alert("Email successfully verified :)");
-
-      props.history.push("/settings");
+      setIsVisable(true);
     } catch (e) {
       alert(e.message);
       setIsConfirming(false);
@@ -94,84 +94,102 @@ export default function ChangeEmail(props) {
 
   function renderUpdateForm() {
     return (
-      <form onSubmit={handleUpdateClick}>
-        {!emailVerified && (
-          <FormGroup>
+      <Form className="py-4" onSubmit={handleUpdateClick}>
+        <Row form className="mx-4">
+          <Col md="4" className="form-group">
+          {!emailVerified && (
+            <Row form>
+              <Col md="6" className="form-group">
+                <Button
+                  size="sm"
+                  theme="accent"
+                  className="d-table mx-auto mt-4"
+                  onClick={handleResendValidation}
+                >
+                Resend Verification
+                </Button>
+                <p className="form-text text-muted m-0">
+                  Confirmation code will be sent to ({userEmail}).
+                </p>
+                <p className="form-text text-muted m-0">
+                  <b>OR</b>
+                </p>
+                <p className="form-text text-muted m-0">
+                  Enter a new email below.
+                </p>
+              </Col>
+            </Row>
+          )}
+          {!emailVerified && (
+            <hr />
+          )}
+            <Row form>
+              <label htmlFor="email">Email</label>
+              <FormInput
+                id="email"
+                type="email"
+                placeholder="New Email"
+                value={fields.email}
+                onChange={handleFieldChange}
+              />
+            </Row>
             <Button
               size="sm"
               theme="accent"
               className="d-table mx-auto mt-4"
-              onClick={handleResendValidation}
+              type="submit"
+              disabled={!validatEmailForm()}
             >
-            Resend Verification
+            Update Email
             </Button>
-            <HelpBlock>
-              Confirmation code will be sent to ({userEmail}).
-            </HelpBlock>
-            <HelpBlock>
-              <b>OR</b>
-            </HelpBlock>
-            <HelpBlock>
-              Enter a new email below.
-            </HelpBlock>
-          </FormGroup>
-        )}
-        {!emailVerified && (
-          <hr />
-        )}
-        <FormGroup bsSize="large" controlId="email">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={fields.email}
-            onChange={handleFieldChange}
-          />
-        </FormGroup>
-        <Button
-          size="sm"
-          theme="accent"
-          className="d-table mx-auto mt-4"
-          type="submit"
-          disabled={!validatEmailForm()}
-        >
-        Update Email
-        </Button>
-      </form>
+         </Col>
+      </Row>
+    </Form>
     );
   }
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmClick}>
-        <FormGroup bsSize="large" controlId="code">
-          <ControlLabel>Confirmation Code</ControlLabel>
-          <FormControl
-            autoFocus
-            type="tel"
-            value={fields.code}
-            onChange={handleFieldChange}
-          />
-          <HelpBlock>
-            Please check your email ({userEmail}) for the confirmation
-            code.
-          </HelpBlock>
-        </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          loadingText="Confirm…"
-          isLoading={isConfirming}
-          disabled={!validateConfirmForm()}
-        >
-        Confirm
-        </LoaderButton>
-      </form>
+      <Form className="py-4" onSubmit={handleConfirmClick}>
+        <Row form className="mx-4">
+          <Col md="4" className="form-group">
+            <Row form>
+                <label htmlFor="code">Confirmation Code</label>
+                <FormInput
+                  id="code"
+                  type="tel"
+                  placeholder="Confirmation Code"
+                  value={fields.code}
+                  onChange={handleFieldChange}
+                />
+                <p className="form-text text-muted m-0">
+                  Please check your email ({userEmail}) for the confirmation
+                  code.
+                </p>
+            </Row>
+            <Button
+              size="sm"
+              theme="accent"
+              className="d-table mx-auto mt-4"
+              type="submit"
+              disabled={!validateConfirmForm()}
+            >
+            Confirm
+            </Button>
+          </Col>
+        </Row>
+      </Form>
     );
   }
 
   return (
-    !codeSent ? renderUpdateForm() : renderConfirmationForm()
+    <Container fluid className="px-0">
+       <Alert theme="success" className="mb-0"
+              dismissible={dismiss}
+              open={isVisable}>
+       Your email has been successfully updated!
+       </Alert>
+    {!codeSent ? renderUpdateForm() : renderConfirmationForm()}
+    </Container>
   );
 }
