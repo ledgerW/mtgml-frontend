@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, ListGroupItem } from "shards-react";
+import { ListGroup, ListGroupItem, ListGroupItemHeading } from "shards-react";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
 import { Store } from "../flux";
@@ -36,7 +36,8 @@ export default function Home(props) {
     return [{}].concat(decks).map((deck, i) =>
       i !== 0 ? (
         <LinkContainer key={deck.deckId} to={`/decks/${deck.deckId}`}>
-          <ListGroupItem header={deck.content.trim().split("\n")[0]}>
+          <ListGroupItem>
+            <ListGroupItemHeading>{deck.content.trim().split("\n")[0]}</ListGroupItemHeading>
             {"Created: " + new Date(deck.createdAt).toLocaleString()}
           </ListGroupItem>
         </LinkContainer>

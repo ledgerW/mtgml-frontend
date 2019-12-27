@@ -9,7 +9,7 @@ import NavbarToggle from "./NavbarToggle";
 
 import { LAYOUT_TYPES } from "../../../utils/constants";
 
-const MainNavbar = ({ layout, stickyTop, appProps, ...rest }) => {
+const MainNavbar = ({ layout, stickyTop, ...rest }) => {
   const isHeaderNav = layout === LAYOUT_TYPES.HEADER_NAVIGATION;
   const classes = classNames(
     "main-navbar",
@@ -29,17 +29,17 @@ const MainNavbar = ({ layout, stickyTop, appProps, ...rest }) => {
                   className="d-inline-block align-top mr-1 ml-3"
                   style={{ maxWidth: "25px" }}
                   src={require("../../../images/shards-dashboards-logo.svg")}
-                  alt="Shards Dashboard"
+                  alt="MagicML"
                 />
                 <span className="d-none d-md-inline ml-1">
-                  Shards Dashboard
+                  MagicML
                 </span>
               </div>
             </NavbarBrand>
           )}
-          <NavbarSearch {...appProps}/>
-          <NavbarNav {...appProps}/>
-          <NavbarToggle {...appProps}/>
+          <NavbarSearch/>
+          <NavbarNav/>
+          <NavbarToggle/>
         </Navbar>
       </Container>
     </div>

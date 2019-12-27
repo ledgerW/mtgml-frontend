@@ -13,7 +13,6 @@ import UserProfileLite from "./containers/UserProfileLite";
 import EditUserProfile from "./containers/EditUserProfile";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
-import ForgotPassword from "./containers/ForgotPassword";
 import ChangePassword from "./containers/ChangePassword";
 import FileManagerList from "./containers/FileManagerList";
 import FileManagerCards from "./containers/FileManagerCards";
