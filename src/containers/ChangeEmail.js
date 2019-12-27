@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
+import { Button } from "shards-react";
 import {HelpBlock, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
-//import "./ChangeEmail.css";
+
 
 export default function ChangeEmail(props) {
   const [fields, handleFieldChange] = useFormFields({
@@ -96,14 +97,14 @@ export default function ChangeEmail(props) {
       <form onSubmit={handleUpdateClick}>
         {!emailVerified && (
           <FormGroup>
-            <LoaderButton
-              block
+            <Button
+              size="sm"
+              theme="accent"
+              className="d-table mx-auto mt-4"
               onClick={handleResendValidation}
-              bsSize="large"
-              loadingText="Sending…"
             >
             Resend Verification
-            </LoaderButton>
+            </Button>
             <HelpBlock>
               Confirmation code will be sent to ({userEmail}).
             </HelpBlock>
@@ -127,16 +128,15 @@ export default function ChangeEmail(props) {
             onChange={handleFieldChange}
           />
         </FormGroup>
-        <LoaderButton
-          block
+        <Button
+          size="sm"
+          theme="accent"
+          className="d-table mx-auto mt-4"
           type="submit"
-          bsSize="large"
-          loadingText="Updating…"
           disabled={!validatEmailForm()}
-          isLoading={isSendingCode}
         >
         Update Email
-        </LoaderButton>
+        </Button>
       </form>
     );
   }
@@ -172,8 +172,6 @@ export default function ChangeEmail(props) {
   }
 
   return (
-    <div className="ChangeEmail">
-      {!codeSent ? renderUpdateForm() : renderConfirmationForm()}
-    </div>
+    !codeSent ? renderUpdateForm() : renderConfirmationForm()
   );
 }

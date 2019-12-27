@@ -4,7 +4,7 @@ import { DefaultLayout } from "../layouts";
 import { Store } from "../flux";
 //import withTracker from "../withTracker";
 
-export default function AuthenticatedRoute({ comps, appProps, ...rest }) {
+export default function AuthenticatedRoute({ comps, ...rest }) {
   return (
     <Route
       {...rest}
@@ -12,8 +12,8 @@ export default function AuthenticatedRoute({ comps, appProps, ...rest }) {
         return (
           Store.isAuthenticated()
             ? (
-                <comps.layout {...props} {...appProps}>
-                  <comps.container {...props} {...appProps} />
+                <comps.layout {...props}>
+                  <comps.container {...props}/>
                 </comps.layout>
               )
             : <Redirect

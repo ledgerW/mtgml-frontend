@@ -56,7 +56,7 @@ export default function Home(props) {
   function renderLander() {
       return (
         <div>
-          <h1>MTGML</h1>
+          <h1>MagicML</h1>
           <p>Understand your deck.</p>
           <p>Make it better.</p>
         </div>
