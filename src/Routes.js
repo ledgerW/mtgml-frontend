@@ -9,11 +9,8 @@ import Analytics from "./containers/Analytics";
 import OnlineStore from "./containers/OnlineStore";
 import BlogOverview from "./containers/BlogOverview";
 import UserProfile from "./containers/UserProfile";
-import UserProfileLite from "./containers/UserProfileLite";
 import EditUserProfile from "./containers/EditUserProfile";
 import Login from "./containers/Login";
-import Register from "./containers/Register";
-import ChangePassword from "./containers/ChangePassword";
 import FileManagerList from "./containers/FileManagerList";
 import FileManagerCards from "./containers/FileManagerCards";
 import TransactionHistory from "./containers/TransactionHistory";
@@ -32,7 +29,7 @@ import Signup from "./containers/Signup";
 import NewDeck from "./containers/NewDeck";
 import Decks from "./containers/Decks";
 import Settings from "./containers/Settings";
-//import ChangePassword from "./containers/ChangePassword";
+import ChangePassword from "./containers/ChangePassword";
 import ChangeEmail from "./containers/ChangeEmail";
 import Subscribe from "./containers/Subscribe";
 import AppliedRoute from "./components/AppliedRoute";
@@ -52,31 +49,31 @@ export default function Routes({ appProps }) {
   return (
     <Switch>
       <AppliedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} />
-      <UnauthenticatedRoute path="/login" exact comps={{layout: BlankIconSidebarLayout, container: Login}} />
-      <UnauthenticatedRoute path="/login/reset" exact comps={{layout: BlankIconSidebarLayout, container: ResetPassword}} />
-      <UnauthenticatedRoute path="/signup" exact comps={{layout: BlankIconSidebarLayout, container: Signup}} />
-      <AuthenticatedRoute path="/dashboard" exact comps={{layout: DefaultLayout, container: Analytics}} />
-      <AuthenticatedRoute path="/ecommerce" exact comps={{layout: DefaultLayout, container: OnlineStore}} />
-      <AuthenticatedRoute path="/overview" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      {/*User Stuff (Temp)*/}
+      <UnauthenticatedRoute path="/signup" exact comps={{layout: DefaultLayout, container: Signup}} />
+      <UnauthenticatedRoute path="/login" exact comps={{layout: DefaultLayout, container: Login}} />
+      <UnauthenticatedRoute path="/login/reset" exact comps={{layout: DefaultLayout, container: ResetPassword}} />
       <AuthenticatedRoute path="/profile" exact comps={{layout: DefaultLayout, container: UserProfile}} />
       <AuthenticatedRoute path="/edit_profile" exact comps={{layout: DefaultLayout, container: EditUserProfile}} />
+      <AuthenticatedRoute path="/settings" exact comps={{layout: DefaultLayout, container: Settings}} />
+      <AuthenticatedRoute path="/settings/subscribe" exact comps={{layout: DefaultLayout, container: Subscribe}} />
       <AuthenticatedRoute path="/file_manager_list" exact comps={{layout: DefaultLayout, container: FileManagerList}} />
       <AuthenticatedRoute path="/file_manager_cards" exact comps={{layout: DefaultLayout, container: FileManagerCards}} />
       <AuthenticatedRoute path="/transaction_history" exact comps={{layout: DefaultLayout, container: TransactionHistory}} />
-      <AuthenticatedRoute path="/calendar" exact comps={{layout: DefaultLayout, container: Calendar}} />
-      <AuthenticatedRoute path="/new_post" exact comps={{layout: DefaultLayout, container: AddNewPost}} />
-      <AuthenticatedRoute path="/errors" exact comps={{layout: DefaultLayout, container: Errors}} />
-      <AuthenticatedRoute path="/components" exact comps={{layout: DefaultLayout, container: ComponentsOverview}} />
-      <AuthenticatedRoute path="/tables" exact comps={{layout: DefaultLayout, container: Tables}} />
-      <AuthenticatedRoute path="/blog_posts" exact comps={{layout: DefaultLayout, container: BlogPosts}} />
-      <AuthenticatedRoute path="/header_nav" exact comps={{layout: HeaderNavigation, container: HeaderNav}} />
-      <AuthenticatedRoute path="/icon_side_nav" exact comps={{layout: IconSidebar, container: IconSidebarView}} />
-      <AuthenticatedRoute path="/settings" exact comps={{layout: BlankIconSidebarLayout, container: Settings}} />
-      <AuthenticatedRoute path="/settings/password" exact comps={{layout: BlankIconSidebarLayout, container: ChangePassword}} />
-      <AuthenticatedRoute path="/settings/email" exact comps={{layout: BlankIconSidebarLayout, container: ChangeEmail}} />
-      <AuthenticatedRoute path="/settings/subscribe" exact comps={{layout: BlankIconSidebarLayout, container: Subscribe}} />
-      <AuthenticatedRoute path="/decks/new" exact comps={{layout: BlankIconSidebarLayout, container: NewDeck}} />
-      <AuthenticatedRoute path="/decks/:id" exact comps={{layout: BlankIconSidebarLayout, container: Decks}} />
+      {/*Decks*/}
+      <AuthenticatedRoute path="/analyze" exact comps={{layout: DefaultLayout, container: Analytics}} />
+      <AuthenticatedRoute path="/compare" exact comps={{layout: DefaultLayout, container: OnlineStore}} />
+      <AuthenticatedRoute path="/build" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      {/*Card Market*/}
+      <AuthenticatedRoute path="/portfolio" exact comps={{layout: DefaultLayout, container: Analytics}} />
+      <AuthenticatedRoute path="/prices" exact comps={{layout: DefaultLayout, container: OnlineStore}} />
+      <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      {/*Collection*/}
+      <AuthenticatedRoute path="/manage_decks" exact comps={{layout: DefaultLayout, container: Home}} />
+      <AuthenticatedRoute path="/manage_cards" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: NewDeck}} />
+      <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Decks}} />
       { /* Finally, catch all unmatched routes */ }
       <AppliedRoute comps={{layout: DefaultLayout, container: Errors}} />
     </Switch>

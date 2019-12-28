@@ -25,7 +25,7 @@ import {
 import FormSectionTitle from "../components/edit-user-profile/FormSectionTitle";
 import ProfileBackgroundPhoto from "../components/edit-user-profile/ProfileBackgroundPhoto";
 import ChangeEmail from "../containers/ChangeEmail";
-import ChangePassword from "../containers/ChangePasswordOrig";
+import ChangePassword from "../containers/ChangePassword";
 
 class EditUserProfile extends React.Component {
   constructor(props) {
@@ -148,10 +148,10 @@ class EditUserProfile extends React.Component {
                           Profile Picture
                         </label>
                         <div className="edit-user-details__avatar m-auto">
-                          <img
-                            src={require("../images/avatars/lw2134.jpg")}
-                            alt="User Avatar"
-                          />
+                        <img
+                          src={require("../images/avatars/lw2134.jpg")}
+                          alt="User Avatar"
+                        />
                           <label className="edit-user-details__avatar__change">
                             <i className="material-icons mr-1">&#xE439;</i>
                             <FormInput
