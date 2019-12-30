@@ -18,7 +18,8 @@ export default class UserActions extends React.Component {
     super(props);
 
     this.state = {
-      visible: false
+      visible: false,
+      authenticated: true
     };
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -37,7 +38,7 @@ export default class UserActions extends React.Component {
       actionType: Constants.USER_AUTHENTICATION
     });
     this.setState({
-      visible: !this.state.visible
+      authenticated: !this.state.authenticated
     });
   }
 

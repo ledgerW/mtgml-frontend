@@ -11,6 +11,7 @@ export default function Home(props) {
 
   useEffect(() => {
     async function onLoad() {
+      console.log(Store.isAuthenticated());
       if (!Store.isAuthenticated()) {
         return;
       }

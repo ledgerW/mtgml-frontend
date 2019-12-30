@@ -26,7 +26,7 @@ export default function Signup(props) {
     confirmationCode: ""
   });
   //const [newUser, setNewUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isFillingForm, setIsFillingForm] = useState(true);
 
   function validateForm() {
     return (
@@ -43,23 +43,20 @@ export default function Signup(props) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    setIsLoading(true);
-
     try {
       const newUser = await Auth.signUp({
         username: fields.email,
         password: fields.password
       });
-      setIsLoading(false);
       Dispatcher.dispatch({
         actionType: Constants.NEW_USER,
         payload: newUser
       });
+      setIsFillingForm(false);
     } catch (e) {
       if(e.name === 'UsernameExistsException') {
         await Auth.resendSignUp(fields.email);
         alert("You have already registered. Resending confirmation to " + fields.email);
-        setIsLoading(false);
         Dispatcher.dispatch({
           actionType: Constants.NEW_USER,
           payload: {
@@ -67,17 +64,15 @@ export default function Signup(props) {
             userConfirmed: false
           }
         });
+        setIsFillingForm(false);
       } else {
         alert(e.message);
-        setIsLoading(false);
       }
     }
   }
 
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
-
-    setIsLoading(true);
 
     try {
       var user_email = fields.email ? fields.email : Store.newUser.user;
@@ -89,7 +84,6 @@ export default function Signup(props) {
       props.history.push("/login");
     } catch (e) {
       alert(e.message);
-      setIsLoading(false);
     }
   }
 

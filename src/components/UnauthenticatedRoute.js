@@ -21,7 +21,7 @@ function querystring(name, url = window.location.href) {
 }
 
 
-export default function UnauthenticatedRoute({ comps, appProps, ...rest }) {
+export default function UnauthenticatedRoute({ comps, ...rest }) {
   const redirect = querystring("redirect");
   return (
     <Route
@@ -30,8 +30,8 @@ export default function UnauthenticatedRoute({ comps, appProps, ...rest }) {
         return (
           !Store.isAuthenticated()
             ? (
-                <comps.layout {...props} appProps={appProps}>
-                  <comps.container {...props} {...appProps} />
+                <comps.layout {...props} noNavbar={true}>
+                  <comps.container {...props} />
                 </comps.layout>
               )
             : <Redirect
