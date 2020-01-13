@@ -3,17 +3,17 @@ const dev = {
   DOMAIN: "https://mtgml.netlify.com/",
   s3: {
     REGION: "us-east-1",
-    BUCKET: "mtgml-storage-dev-s3bucket-18hp0a14w8tkb"
+    BUCKET: "mtgml-storage-dev-s3bucket-1itpt0az270lk"
   },
   apiGateway: {
     REGION: "us-east-1",
-    URL: "https://6k06l9f2gf.execute-api.us-east-1.amazonaws.com/dev"
+    URL: "https://ezd28ud6k2.execute-api.us-east-1.amazonaws.com/dev"
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_UKSRp4cqj",
-    APP_CLIENT_ID: "67cuic0uehnjigufi1s7qeq2a9",
-    IDENTITY_POOL_ID: "us-east-1:f8421eeb-b4aa-4bde-afa4-83330991420b"
+    USER_POOL_ID: "us-east-1_RmjPM2rab",
+    APP_CLIENT_ID: "1ojsrmod4a69glfoe9vilflrjm",
+    IDENTITY_POOL_ID: "us-east-1:33ff9b7c-9077-414a-a802-06482b17c8d1"
   },
 };
 
