@@ -7,7 +7,7 @@ const dev = {
   },
   apiGateway: {
     REGION: "us-east-1",
-    URL: "https://ezd28ud6k2.execute-api.us-east-1.amazonaws.com/dev"
+    URL: "https://ybq8f1d657.execute-api.us-east-1.amazonaws.com/dev"
   },
   cognito: {
     REGION: "us-east-1",
@@ -22,17 +22,17 @@ const prod = {
   DOMAIN: "https://mtgml.netlify.com/",
   s3: {
     REGION: "us-east-1",
-    BUCKET: "mtgml-prod-attachmentsbucket-pdcw0jea0tga"
+    BUCKET: "mtgml-storage-prod-s3bucket-1uxz81xl69zc0"
   },
   apiGateway: {
     REGION: "us-east-1",
-    URL: "https://4o28vvlwg9.execute-api.us-east-1.amazonaws.com/prod"
+    URL: "https://0d3wryadc6.execute-api.us-east-1.amazonaws.com/prod"
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_Ka9TkZJ1O",
-    APP_CLIENT_ID: "29erkh67kqeb2nvmvvj6c1v2rn",
-    IDENTITY_POOL_ID: "us-east-1:fc5f117b-b733-472f-b9ff-4e35686ec3bd"
+    USER_POOL_ID: "us-east-1_HD0acUmPa",
+    APP_CLIENT_ID: "4eps1erkl1604jf5slhi9mp9bh",
+    IDENTITY_POOL_ID: "us-east-1:9b695c79-187a-45c1-925b-59593ac69caf"
   }
 };
 
