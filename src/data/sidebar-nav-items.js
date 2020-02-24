@@ -1,36 +1,6 @@
 export default function () {
-  return [{
-    title: 'User Stuff (Temp)',
-    items: [{
-      title: 'Sign Up',
-      to: '/signup',
-      htmlBefore: '<i class="material-icons">&#xE7FD;</i>',
-      htmlAfter: ''
-    }, {
-      title: 'Login',
-      to: '/login',
-      htmlBefore: '<i class="material-icons">&#xE7FD;</i>',
-      htmlAfter: ''
-    }, {
-      title: 'Other Stuff',
-      htmlBefore: '<i class="material-icons">&#xE2C7;</i>',
-      open: false,
-      items: [{
-        title: 'Files - List View',
-        to: '/file_manager_list',
-      }, {
-        title: 'Files - Cards View',
-        to: '/file_manager_cards',
-      }, {
-        title: 'Settings',
-        to: '/settings'
-      }, {
-        title: 'Transaction History',
-        htmlBefore: '<i class="material-icons">&#xE889;</i>',
-        to: '/transaction_history',
-      }]
-    },
-  ]}, {
+  return [
+  {
     title: 'Decks',
     items: [{
       title: 'Analyze',
@@ -75,6 +45,26 @@ export default function () {
       title: 'Manage Cards',
       htmlBefore: '<i class="material-icons">table_chart</i>',
       to: '/manage_cards',
-    }]
+    },
+    {
+      title: 'Other Stuff',
+      htmlBefore: '<i class="material-icons">&#xE2C7;</i>',
+      open: false,
+      items: [{
+        title: 'Files - List View',
+        to: '/file_manager_list',
+      }, {
+        title: 'Files - Cards View',
+        to: '/file_manager_cards',
+      }, {
+        title: 'Settings',
+        to: '/settings'
+      }, {
+        title: 'Transaction History',
+        htmlBefore: '<i class="material-icons">&#xE889;</i>',
+        to: '/transaction_history',
+      }]
+    },
+  ]
   }];
 }
