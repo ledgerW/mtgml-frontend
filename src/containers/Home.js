@@ -3,6 +3,11 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading } from "shards-react";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
 import { Store } from "../flux";
+import {
+  Container,
+  Row,
+  Col
+} from "shards-react";
 
 
 export default function Home(props) {
@@ -59,11 +64,17 @@ export default function Home(props) {
 
   function renderLander() {
       return (
-        <div>
-          <h1>MagicML</h1>
-          <p>Understand your deck.</p>
-          <p>Make it better.</p>
-        </div>
+        <Container fluid className="main-content-container h-100 px-4">
+          <Row noGutters className="h-100">
+            <Col lg="3" md="5" className="auth-form mx-auto my-auto">
+              <div>
+                <h1>MagicML</h1>
+                <p>Understand your deck.</p>
+                <p>Make it better.</p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       );
     }
 

@@ -33,8 +33,6 @@ export default function UserActions(props) {
     history.push("/");
   }
 
-  console.log('From Logout...');
-  console.log('Store.isAuthenticated(): ' + Store.isAuthenticated());
   return (
     Store.isAuthenticated()
     ? (

@@ -48,7 +48,7 @@ const BlankIconSidebarLayout = ({ children }) => (
 export default function Routes({ appProps }) {
   return (
     <Switch>
-      <AuthenticatedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} />
+      <UnauthenticatedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} />
       {/*User Stuff (Temp)*/}
       <UnauthenticatedRoute path="/signup" exact comps={{layout: DefaultLayout, container: Signup}} />
       <UnauthenticatedRoute path="/login" exact comps={{layout: DefaultLayout, container: Login}} />
