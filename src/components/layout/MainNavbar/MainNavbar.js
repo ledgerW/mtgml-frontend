@@ -12,6 +12,7 @@ import { LAYOUT_TYPES } from "../../../utils/constants";
 const MainNavbar = ({ layout, stickyTop, ...rest }) => {
   const isHeaderNav = layout === LAYOUT_TYPES.HEADER_NAVIGATION;
   const classes = classNames(
+    "flex",
     "main-navbar",
     "bg-white",
     stickyTop && "sticky-top"
