@@ -30,7 +30,7 @@ export default function UnauthenticatedRoute({ comps, ...rest }) {
         return (
           !Store.isAuthenticated()
             ? (
-                <comps.layout {...props} noNavbar={true}>
+                <comps.layout {...props} noNavbar={false}>
                   <comps.container {...props} />
                 </comps.layout>
               )

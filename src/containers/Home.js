@@ -9,9 +9,11 @@ export default function Home(props) {
   const [decks, setDecks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(() => {
     async function onLoad() {
-      console.log(Store.isAuthenticated());
+      console.log('From Home...');
+      console.log('Store.isAuthenticated(): ' + Store.isAuthenticated());
       if (!Store.isAuthenticated()) {
         return;
       }
@@ -27,7 +29,8 @@ export default function Home(props) {
     }
 
     onLoad();
-  }, [Store.isAuthenticated()]);
+  }, []);
+
 
   function loadDecks() {
     return API.get("decks", "/decks");
@@ -74,6 +77,9 @@ export default function Home(props) {
       </div>
     );
   }
+
+  console.log('From Home...');
+  console.log('Store.isAuthenticated(): ' + Store.isAuthenticated());
 
   return (
     <div>

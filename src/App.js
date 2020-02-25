@@ -9,10 +9,10 @@ import "./assets/main.scss";
 
 
 function App(props) {
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  //const [isAuthenticating, setIsAuthenticating] = useState(true);
   //const [isAuthenticated, userHasAuthenticated] = useState(false);
   //const [newUser, setNewUser] = useState(null);
-
+/*
   useEffect(() => {
     onLoad();
   }, []);
@@ -31,11 +31,12 @@ function App(props) {
       }
     }
 
-    setIsAuthenticating(false);
+    //setIsAuthenticating(false);
   }
+*/
 
   return (
-    !isAuthenticating &&
+    //!isAuthenticating &&
     <div>
       <Routes />
     </div>
