@@ -54,19 +54,21 @@ export default function Signup(props) {
       });
       setIsFillingForm(false);
     } catch (e) {
-      if(e.name === 'UsernameExistsException') {
-        await Auth.resendSignUp(fields.email);
-        alert("You have already registered. Resending confirmation to " + fields.email);
-        Dispatcher.dispatch({
-          actionType: Constants.NEW_USER,
-          payload: {
-            user: fields.email,
-            userConfirmed: false
-          }
-        });
-        setIsFillingForm(false);
-      } else {
-        alert(e.message);
+      if (e.name === 'UsernameExistsException') {
+        try {
+          await Auth.resendSignUp(fields.email);
+          alert("You have already registered. Resending confirmation to " + fields.email);
+          Dispatcher.dispatch({
+            actionType: Constants.NEW_USER,
+            payload: {
+              user: fields.email,
+              userConfirmed: false
+            }
+          });
+          setIsFillingForm(false);
+        } catch (e) {
+          alert("There is already an account registered with " + fields.email);
+        }
       }
     }
   }
@@ -81,6 +83,10 @@ export default function Signup(props) {
         actionType: Constants.NEW_USER,
         payload: null
       });
+
+      // Create new user in Dynamo
+
+
       props.history.push("/login");
     } catch (e) {
       alert(e.message);
