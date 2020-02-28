@@ -25,7 +25,6 @@ export default function Signup(props) {
     confirmPassword: "",
     confirmationCode: ""
   });
-  //const [newUser, setNewUser] = useState(null);
   const [isFillingForm, setIsFillingForm] = useState(true);
 
   function validateForm() {

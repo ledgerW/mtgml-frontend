@@ -1,15 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
-//import withTracker from "../withTracker";
 
 export default function AppliedRoute({ comps, appProps, ...rest }) {
   return (
     <Route
       {...rest}
-      component={props => {
+      component={(props) => {
         return (
-          <comps.layout {...props} {...appProps}>
-            <comps.container {...props} {...appProps} />
+          <comps.layout authenticated={appProps.authenticated} userHasAuthenticated={appProps.userHasAuthenticated} userData={appProps.userData} setUserData={appProps.setUserData} >
+            <comps.container {...props} authenticated={appProps.authenticated} userHasAuthenticated={appProps.userHasAuthenticated} userData={appProps.userData} setUserData={appProps.setUserData} />
           </comps.layout>
         );
       }}

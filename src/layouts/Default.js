@@ -6,20 +6,23 @@ import MainNavbar from "../components/layout/MainNavbar/MainNavbar";
 import MainSidebar from "../components/layout/MainSidebar/MainSidebar";
 import MainFooter from "../components/layout/MainFooter";
 
+import { isAuthenticated } from "../libs/sessionLib";
 import { Store } from "../flux";
 
 
-function DefaultLayout({ children, noNavbar, noFooter }) {
+function DefaultLayout({ children, noNavbar, noFooter, authenticated, userHasAuthenticated, userData, setUserData }) {
   return (
     <Container fluid>
       <Row>
-        {Store.isAuthenticated() && <MainSidebar />}
+        {authenticated.auth && <MainSidebar />}
         <Col
           className="main-content p-0"
+          lg={{ size: 10, offset: 2 }}
+          md={{ size: 9, offset: 3 }}
           sm="12"
           tag="main"
         >
-          {!noNavbar && <MainNavbar />}
+          {!noNavbar && <MainNavbar authenticated={authenticated} userHasAuthenticated={userHasAuthenticated} userData={userData} setUserData={setUserData}/>}
           {children}
           {!noFooter && <MainFooter />}
         </Col>
@@ -29,6 +32,10 @@ function DefaultLayout({ children, noNavbar, noFooter }) {
 }
 
 DefaultLayout.propTypes = {
+  authenticated: PropTypes.object,
+  userHasAuthenticated: PropTypes.func,
+  userData: PropTypes.object,
+  setUserData: PropTypes.func,
   /**
    * Whether to display the navbar, or not.
    */

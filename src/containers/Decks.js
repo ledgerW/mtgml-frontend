@@ -14,7 +14,7 @@ export default function Decks(props) {
 
   useEffect(() => {
     function loadDeck() {
-      return API.get("decks", `/decks/${props.match.params.id}`);
+      return API.get("mtgml", `/decks/${props.match.params.id}`);
     }
 
     async function onLoad() {
@@ -49,7 +49,7 @@ function handleFileChange(event) {
 }
 
 function saveDeck(deck) {
-  return API.put("decks", `/decks/${props.match.params.id}`, {
+  return API.put("mtgml", `/decks/${props.match.params.id}`, {
     body: deck
   });
 }
@@ -86,7 +86,7 @@ async function handleSubmit(event) {
 }
 
 function deleteDeck() {
-  return API.del("decks", `/decks/${props.match.params.id}`);
+  return API.del("mtgml", `/decks/${props.match.params.id}`);
 }
 
 async function handleDelete(event) {

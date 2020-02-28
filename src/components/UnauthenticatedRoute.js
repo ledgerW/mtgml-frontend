@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { isAuthenticated } from "../libs/sessionLib";
 import { Store } from "../flux";
-//import withTracker from "../withTracker";
 
 
 function querystring(name, url = window.location.href) {
@@ -21,17 +21,17 @@ function querystring(name, url = window.location.href) {
 }
 
 
-export default function UnauthenticatedRoute({ comps, ...rest }) {
+export default function UnauthenticatedRoute({ comps, appProps, ...rest }) {
   const redirect = querystring("redirect");
   return (
     <Route
       {...rest}
-      component={(props, appProps) => {
+      component={(props) => {
         return (
-          !Store.isAuthenticated()
+          !appProps.authenticated.auth
             ? (
-                <comps.layout {...props} noNavbar={false}>
-                  <comps.container {...props} />
+                <comps.layout authenticated={appProps.authenticated} userHasAuthenticated={appProps.userHasAuthenticated} userData={appProps.userData} setUserData={appProps.setUserData} noNavbar={false}>
+                  <comps.container {...props} authenticated={appProps.authenticated} userHasAuthenticated={appProps.userHasAuthenticated} userData={appProps.userData} setUserData={appProps.setUserData} />
                 </comps.layout>
               )
             : <Redirect

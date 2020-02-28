@@ -48,34 +48,34 @@ const BlankIconSidebarLayout = ({ children }) => (
 export default function Routes({ appProps }) {
   return (
     <Switch>
-      <UnauthenticatedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} />
+      <AppliedRoute path="/" exact comps={{layout: DefaultLayout, container: Home}} appProps={appProps} />
       {/*User Stuff (Temp)*/}
-      <UnauthenticatedRoute path="/signup" exact comps={{layout: DefaultLayout, container: Signup}} />
-      <UnauthenticatedRoute path="/login" exact comps={{layout: DefaultLayout, container: Login}} />
-      <UnauthenticatedRoute path="/login/reset" exact comps={{layout: DefaultLayout, container: ResetPassword}} />
-      <AuthenticatedRoute path="/profile" exact comps={{layout: DefaultLayout, container: UserProfile}} />
-      <AuthenticatedRoute path="/edit_profile" exact comps={{layout: DefaultLayout, container: EditUserProfile}} />
-      <AuthenticatedRoute path="/settings" exact comps={{layout: DefaultLayout, container: Settings}} />
-      <AuthenticatedRoute path="/settings/subscribe" exact comps={{layout: DefaultLayout, container: Subscribe}} />
-      <AuthenticatedRoute path="/file_manager_list" exact comps={{layout: DefaultLayout, container: FileManagerList}} />
-      <AuthenticatedRoute path="/file_manager_cards" exact comps={{layout: DefaultLayout, container: FileManagerCards}} />
-      <AuthenticatedRoute path="/transaction_history" exact comps={{layout: DefaultLayout, container: TransactionHistory}} />
+      <UnauthenticatedRoute path="/signup" exact comps={{layout: DefaultLayout, container: Signup }} appProps={appProps} />
+      <UnauthenticatedRoute path="/login" exact comps={{layout: DefaultLayout, container: Login}} appProps={appProps} />
+      <UnauthenticatedRoute path="/login/reset" exact comps={{layout: DefaultLayout, container: ResetPassword}} appProps={appProps} />
+      <AuthenticatedRoute path="/profile" exact comps={{layout: DefaultLayout, container: UserProfile}} appProps={appProps} />
+      <AuthenticatedRoute path="/edit_profile" exact comps={{layout: DefaultLayout, container: EditUserProfile}} appProps={appProps} />
+      <AuthenticatedRoute path="/settings" exact comps={{layout: DefaultLayout, container: Settings}} appProps={appProps} />
+      <AuthenticatedRoute path="/settings/subscribe" exact comps={{layout: DefaultLayout, container: Subscribe}} appProps={appProps} />
+      <AuthenticatedRoute path="/file_manager_list" exact comps={{layout: DefaultLayout, container: FileManagerList}} appProps={appProps} />
+      <AuthenticatedRoute path="/file_manager_cards" exact comps={{layout: DefaultLayout, container: FileManagerCards}} appProps={appProps} />
+      <AuthenticatedRoute path="/transaction_history" exact comps={{layout: DefaultLayout, container: TransactionHistory}} appProps={appProps} />
       {/*Decks*/}
-      <AuthenticatedRoute path="/analyze" exact comps={{layout: DefaultLayout, container: Analytics}} />
-      <AuthenticatedRoute path="/compare" exact comps={{layout: DefaultLayout, container: OnlineStore}} />
-      <AuthenticatedRoute path="/build" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      <AuthenticatedRoute path="/analyze" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
+      <AuthenticatedRoute path="/compare" exact comps={{layout: DefaultLayout, container: OnlineStore}} appProps={appProps} />
+      <AuthenticatedRoute path="/build" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       {/*Card Market*/}
-      <AuthenticatedRoute path="/portfolio" exact comps={{layout: DefaultLayout, container: Analytics}} />
-      <AuthenticatedRoute path="/prices" exact comps={{layout: DefaultLayout, container: OnlineStore}} />
-      <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
+      <AuthenticatedRoute path="/portfolio" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
+      <AuthenticatedRoute path="/prices" exact comps={{layout: DefaultLayout, container: OnlineStore}} appProps={appProps} />
+      <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       {/*Collection*/}
-      <AuthenticatedRoute path="/manage_decks" exact comps={{layout: DefaultLayout, container: Home}} />
-      <AuthenticatedRoute path="/manage_cards" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
-      <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} />
-      <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: NewDeck}} />
-      <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Decks}} />
+      <AuthenticatedRoute path="/manage_decks" exact comps={{layout: DefaultLayout, container: Home}} appProps={appProps} />
+      <AuthenticatedRoute path="/manage_cards" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
+      <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
+      <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: NewDeck}} appProps={appProps} />
+      <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Decks}} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
-      <AppliedRoute comps={{layout: DefaultLayout, container: Errors}} />
+      <AppliedRoute comps={{layout: DefaultLayout, container: Errors}} appProps={appProps} />
     </Switch>
   );
 }

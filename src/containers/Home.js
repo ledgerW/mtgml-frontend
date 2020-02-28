@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ListGroup, ListGroupItem, ListGroupItemHeading } from "shards-react";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
+import { isAuthenticated } from "../libs/sessionLib";
 import { Store } from "../flux";
 import {
   Container,
@@ -14,31 +15,27 @@ export default function Home(props) {
   const [decks, setDecks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     async function onLoad() {
-      console.log('From Home...');
-      console.log('Store.isAuthenticated(): ' + Store.isAuthenticated());
-      if (!Store.isAuthenticated()) {
+      if (!props.authenticated.auth) {
         return;
       }
 
       try {
         const decks = await loadDecks();
         setDecks(decks);
+        setIsLoading(false);
       } catch (e) {
         alert(e);
       }
-
-      setIsLoading(false);
     }
 
     onLoad();
-  }, []);
+  }, [props.authenticated]);
 
 
   function loadDecks() {
-    return API.get("decks", "/decks");
+    return API.get("mtgml", "/decks");
   }
 
   function renderDecksList(decks) {
@@ -89,12 +86,9 @@ export default function Home(props) {
     );
   }
 
-  console.log('From Home...');
-  console.log('Store.isAuthenticated(): ' + Store.isAuthenticated());
-
   return (
     <div>
-      {Store.isAuthenticated() ? renderDecks() : renderLander()}
+      {props.authenticated.auth ? renderDecks() : renderLander()}
     </div>
   );
 }

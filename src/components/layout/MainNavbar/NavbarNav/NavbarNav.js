@@ -6,9 +6,9 @@ import UserActions from "./UserActions";
 
 import { Store } from "../../../../flux";
 
-export default () => (
+export default ({authenticated, userHasAuthenticated, userData, setUserData}) => (
   <Nav navbar className="border-left flex-row">
-    {Store.isAuthenticated() && <Notifications />}
-    <UserActions />
+    {authenticated.auth && <Notifications />}
+    <UserActions authenticated={authenticated} userHasAuthenticated={userHasAuthenticated} userData={userData} setUserData={setUserData} />
   </Nav>
 );

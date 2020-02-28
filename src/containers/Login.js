@@ -15,12 +15,12 @@ import {
   Button
 } from "shards-react";
 import { useFormFields } from "../libs/hooksLib";
-import { Auth } from "aws-amplify";
-import { Store, Dispatcher, Constants } from "../flux";
+import { loadUser } from "../libs/sessionLib";
+import { Auth, API, Storage } from "aws-amplify";
+import { Dispatcher, Constants } from "../flux";
 
 
 export default function Login(props) {
-  const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: ""
@@ -33,19 +33,20 @@ export default function Login(props) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    setIsLoading(true);
-
     try {
       await Auth.signIn(fields.email, fields.password);
-      Dispatcher.dispatch({
-        actionType: Constants.USER_AUTHENTICATION
-      });
-      props.history.push("/");
+
+      const data = await loadUser();
+
+      props.userHasAuthenticated({'auth':true, 'data':data});
+
+
     } catch (e) {
-      if(e.name === 'UserNotConfirmedException') {
+      if (e.name === 'UserNotConfirmedException') {
         await Auth.resendSignUp(fields.email);
+
         alert("Please confirm your email. Resending confirmation to " + fields.email);
-        setIsLoading(false);
+
         Dispatcher.dispatch({
           actionType: Constants.NEW_USER,
           payload: {
@@ -53,12 +54,14 @@ export default function Login(props) {
             userConfirmed: false
           }
         });
+
         props.history.push("/signup");
       } else {
         alert(e.message);
-        setIsLoading(false);
       }
     }
+
+    props.history.push("/");
   }
 
   return (

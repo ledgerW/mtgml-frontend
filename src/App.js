@@ -2,46 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Routes from "./Routes";
 import { Auth } from "aws-amplify";
-import { Dispatcher, Store, Constants } from "./flux";
+import { loadUser } from "./libs/sessionLib";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/main.scss";
 
 
 function App(props) {
-  //const [isAuthenticating, setIsAuthenticating] = useState(true);
-  //const [isAuthenticated, userHasAuthenticated] = useState(false);
-  //const [newUser, setNewUser] = useState(null);
-/*
+  const [authenticated, userHasAuthenticated] = useState({'auth':false, 'data':{}});
+  const [userData, setUserData] = useState(null);
+
+
   useEffect(() => {
+    async function onLoad() {
+      let auth = false;
+      let data = {};
+
+      try {
+        await Auth.currentSession();
+        auth = true;
+      } catch (e) {
+        auth = false;
+      }
+
+      console.log('App Effect auth: ' + auth);
+
+      if (auth) {
+        data = await loadUser();
+      }
+
+      userHasAuthenticated({'auth':auth, 'data':data})
+    }
+
     onLoad();
   }, []);
 
-  async function onLoad() {
-    try {
-      await Auth.currentSession();
-      Dispatcher.dispatch({
-        actionType: Constants.USER_AUTHENTICATION
-      });
-      //userHasAuthenticated(true);
-    }
-    catch(e) {
-      if (e !== 'No current user') {
-        alert(e);
-      }
-    }
-
-    //setIsAuthenticating(false);
-  }
-*/
-
   return (
-    //!isAuthenticating &&
     <div>
-      <Routes />
+      <Routes appProps={{ authenticated, userHasAuthenticated, userData, setUserData }} />
     </div>
   );
 }
 
 export default withRouter(App);
-//<Routes appProps={{ isAuthenticated, userHasAuthenticated, newUser, setNewUser }} />

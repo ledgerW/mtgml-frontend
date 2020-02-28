@@ -22,7 +22,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "decks",
+        name: "mtgml",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       },

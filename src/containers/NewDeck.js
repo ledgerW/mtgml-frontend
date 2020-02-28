@@ -46,7 +46,7 @@ export default function NewDeck(props) {
   }
 
   function createDeck(deck) {
-    return API.post("decks", "/decks", {
+    return API.post("mtgml", "/decks", {
       body: deck
     });
   }

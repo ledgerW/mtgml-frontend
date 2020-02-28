@@ -9,7 +9,7 @@ import NavbarToggle from "./NavbarToggle";
 
 import { LAYOUT_TYPES } from "../../../utils/constants";
 
-const MainNavbar = ({ layout, stickyTop, ...rest }) => {
+const MainNavbar = ({ layout, stickyTop, authenticated, userHasAuthenticated, userData, setUserData, ...rest }) => {
   const isHeaderNav = layout === LAYOUT_TYPES.HEADER_NAVIGATION;
   const classes = classNames(
     "flex",
@@ -23,13 +23,13 @@ const MainNavbar = ({ layout, stickyTop, ...rest }) => {
       <Container fluid={!isHeaderNav || null} className="p-0">
         <Navbar type="light" className="align-items-stretch flex-md-nowrap p-0">
           {isHeaderNav && (
-            <NavbarBrand href="#" style={{ lineHeight: "25px" }}>
+            <NavbarBrand href="/" style={{ lineHeight: "25px" }}>
               <div className="d-table m-auto">
                 <img
                   id="main-logo"
                   className="d-inline-block align-top mr-1 ml-3"
                   style={{ maxWidth: "25px" }}
-                  src={require("../../../images/shards-dashboards-logo.svg")}
+                  src={require("../../../images/favicon.ico")}
                   alt="MagicML"
                 />
                 <span className="d-none d-md-inline ml-1">
@@ -39,7 +39,7 @@ const MainNavbar = ({ layout, stickyTop, ...rest }) => {
             </NavbarBrand>
           )}
           <NavbarSearch/>
-          <NavbarNav/>
+          <NavbarNav authenticated={authenticated} userHasAuthenticated={userHasAuthenticated} userData={userData} setUserData={setUserData} />
           <NavbarToggle/>
         </Navbar>
       </Container>
@@ -48,6 +48,10 @@ const MainNavbar = ({ layout, stickyTop, ...rest }) => {
 };
 
 MainNavbar.propTypes = {
+  authenticated: PropTypes.object,
+  userHasAuthenticated: PropTypes.func,
+  userData: PropTypes.object,
+  setUserData: PropTypes.func,
   /**
    * The layout type where the MainNavbar is used.
    */
