@@ -36,7 +36,7 @@ export default function Login(props) {
     try {
       await Auth.signIn(fields.email, fields.password);
 
-      const data = await loadUser();
+      const data = await loadUser(fields.email);
 
       props.userHasAuthenticated({'auth':true, 'data':data});
 

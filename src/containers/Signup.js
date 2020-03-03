@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import {
   Container,
   Row,
@@ -16,6 +16,7 @@ import {
 import { Link } from "react-router-dom";
 import { useFormFields } from "../libs/hooksLib";
 import { Store, Dispatcher, Constants } from "../flux";
+import config from '../config';
 
 
 export default function Signup(props) {
@@ -39,6 +40,13 @@ export default function Signup(props) {
     return fields.confirmationCode.length > 0;
   }
 
+  function createUser(user) {
+    console.log(JSON.stringify(user));
+    return API.post("mtgml", "/users", {
+      body: user
+    });
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -47,11 +55,19 @@ export default function Signup(props) {
         username: fields.email,
         password: fields.password
       });
+
       Dispatcher.dispatch({
         actionType: Constants.NEW_USER,
         payload: newUser
       });
       setIsFillingForm(false);
+
+      const newUserId = newUser.userSub;
+      const _ = await createUser({
+        'userSub': newUserId,
+        'email': fields.email
+      });
+
     } catch (e) {
       if (e.name === 'UsernameExistsException') {
         try {

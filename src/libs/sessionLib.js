@@ -1,10 +1,16 @@
 import { Auth, API } from "aws-amplify";
 
 
-export function loadUser() {
+export function loadUser(email) {
   let data = {};
+  let reqInit = {
+    queryStringParameters: {
+      email: email
+    }
+  };
+
   try {
-    data = API.get("mtgml", "/users");
+    data = API.get("mtgml", "/users", reqInit);
   } catch (e) {
     data = {};
   }
