@@ -48,16 +48,16 @@ export default function UserActions(props) {
           <span className="d-none d-md-inline-block">{props.authenticated.data.userName}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={visible}>
-          <DropdownItem tag={Link} to="profile">
+          <DropdownItem tag={Link} to="/profile">
             <i className="material-icons">&#xE7FD;</i> Profile
           </DropdownItem>
-          <DropdownItem tag={Link} to="edit_profile">
+          <DropdownItem tag={Link} to="/edit_profile">
             <i className="material-icons">&#xE8B8;</i> Edit Profile
           </DropdownItem>
-          <DropdownItem tag={Link} to="file_manager_list">
+          <DropdownItem tag={Link} to="/file_manager_list">
             <i className="material-icons">&#xE2C7;</i> Files
           </DropdownItem>
-          <DropdownItem tag={Link} to="transaction_history">
+          <DropdownItem tag={Link} to="/transaction_history">
             <i className="material-icons">&#xE896;</i> Transactions
           </DropdownItem>
           <DropdownItem divider />
