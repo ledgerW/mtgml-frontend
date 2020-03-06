@@ -31,7 +31,7 @@ export default function UserActions(props) {
   async function handleLogout() {
     await Auth.signOut();
 
-    props.userHasAuthenticated({'auth':false, 'data':{}});
+    props.userHasAuthenticated({'auth':false, 'data':{}, 'profileURL':null});
 
     history.push("/");
   }
@@ -42,7 +42,7 @@ export default function UserActions(props) {
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
           <img
             className="user-avatar rounded-circle mr-2"
-            src={require("./../../../../images/favicon.ico")}
+            src={props.authenticated.profileURL || require("./../../../../images/favicon.ico")}
             alt="User Avatar"
           />{" "}
           <span className="d-none d-md-inline-block">{props.authenticated.data.userName}</span>

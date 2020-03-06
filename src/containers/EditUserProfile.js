@@ -82,7 +82,7 @@ export default function EditUserProfile(props) {
 
       setGeneralVis(true);
 
-      // UPDATE THIS 
+      // UPDATE THIS
       //props.userHasAuthenticated({
       //  'auth':props.authenticated.auth,
       //  'data':props.authenticated.data,
@@ -167,7 +167,7 @@ export default function EditUserProfile(props) {
                       </label>
                       <div className="edit-user-details__avatar m-auto">
                       <img
-                        src={profilePic || require("../images/avatars/lw2134.jpg")}
+                        src={profilePic || require("../images/favicon.ico")}
                         alt="User Avatar"
                       />
                         <label className="edit-user-details__avatar__change">
