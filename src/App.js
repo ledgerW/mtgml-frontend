@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import Routes from "./Routes";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import { loadUser } from "./libs/sessionLib";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +9,7 @@ import "./assets/main.scss";
 
 
 function App(props) {
-  const [authenticated, userHasAuthenticated] = useState({'auth':false, 'data':{}});
+  const [authenticated, userHasAuthenticated] = useState({'auth':false, 'data':{}, 'profileURL':null});
   const [userData, setUserData] = useState(null);
 
 
@@ -17,6 +17,7 @@ function App(props) {
     async function onLoad() {
       let auth = false;
       let data = {};
+      let profileURL = null;
 
       try {
         await Auth.currentSession();
@@ -25,13 +26,22 @@ function App(props) {
         auth = false;
       }
 
-      console.log('App Effect auth: ' + auth);
-
       if (auth) {
         data = await loadUser();
+        console.log('before if data.profilePic: ' + data.profilePic);
       }
 
-      userHasAuthenticated({'auth':auth, 'data':data})
+      if (data.profilePic) {
+        profileURL = await Storage.vault.get(data.profilePic);
+        profileURL = await fetch(profileURL)
+          .then(resp => resp.blob())
+          .then(blob => {
+            return URL.createObjectURL(blob);
+          });
+        console.log('profileURL local cache: ' + profileURL);
+      }
+
+      userHasAuthenticated({'auth':auth, 'data':data, 'profileURL':profileURL});
     }
 
     onLoad();

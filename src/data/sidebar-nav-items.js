@@ -63,6 +63,18 @@ export default function () {
         title: 'Transaction History',
         htmlBefore: '<i class="material-icons">&#xE889;</i>',
         to: '/transaction_history',
+      }, {
+        title: 'Blog Posts',
+        htmlBefore: '<i class="material-icons">&#xE889;</i>',
+        to: '/blog_posts',
+      }, {
+        title: 'New Post',
+        htmlBefore: '<i class="material-icons">&#xE889;</i>',
+        to: '/new_post',
+      }, {
+        title: 'Tables',
+        htmlBefore: '<i class="material-icons">&#xE889;</i>',
+        to: '/tables',
       }]
     },
   ]

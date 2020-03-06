@@ -41,7 +41,6 @@ export default function Signup(props) {
   }
 
   function createUser(user) {
-    console.log(JSON.stringify(user));
     return API.post("mtgml", "/users", {
       body: user
     });

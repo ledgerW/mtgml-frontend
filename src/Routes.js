@@ -74,6 +74,9 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: NewDeck}} appProps={appProps} />
       <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Decks}} appProps={appProps} />
+      <AuthenticatedRoute path="/blog_posts" exact comps={{layout: DefaultLayout, container: BlogPosts}} appProps={appProps} />
+      <AuthenticatedRoute path="/new_post" exact comps={{layout: DefaultLayout, container: AddNewPost}} appProps={appProps} />
+      <AuthenticatedRoute path="/tables" exact comps={{layout: DefaultLayout, container: Tables}} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
       <AppliedRoute comps={{layout: DefaultLayout, container: Errors}} appProps={appProps} />
     </Switch>
