@@ -11,6 +11,7 @@ import "./assets/main.scss";
 function App(props) {
   const [authenticated, userHasAuthenticated] = useState({'auth':false, 'data':{}, 'profileURL':null});
   const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
@@ -28,7 +29,6 @@ function App(props) {
 
       if (auth) {
         data = await loadUser();
-        console.log('before if data.profilePic: ' + data.profilePic);
       }
 
       if (data.profilePic) {
@@ -38,19 +38,20 @@ function App(props) {
           .then(blob => {
             return URL.createObjectURL(blob);
           });
-        console.log('profileURL local cache: ' + profileURL);
       }
 
       userHasAuthenticated({'auth':auth, 'data':data, 'profileURL':profileURL});
+      setIsLoading(false);
     }
 
     onLoad();
   }, []);
 
-  return (
+  return (!isLoading && (
     <div>
       <Routes appProps={{ authenticated, userHasAuthenticated, userData, setUserData }} />
     </div>
+  )
   );
 }
 

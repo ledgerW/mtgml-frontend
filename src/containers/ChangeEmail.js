@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import { Container, Button, Form, FormInput, Row, Col, Alert } from "shards-react";
 import { useFormFields } from "../libs/hooksLib";
 
@@ -15,9 +15,12 @@ export default function ChangeEmail(props) {
   const [emailVerified, setEmailVerified] = useState(true);
   const [userEmail, setUserEmail] = useState("");
   const [isVisable, setIsVisable] = useState(false);
+  localStorage.setItem('editProfVis', 'false');
 
   useEffect(() => {
     async function onLoad() {
+      setIsVisable((localStorage.getItem('editProfVis') == 'true'));
+
       try {
         const user = await Auth.currentUserInfo();
         setEmailVerified(user.attributes.email_verified);
@@ -32,9 +35,16 @@ export default function ChangeEmail(props) {
     }
 
     onLoad();
-  }, []);
+  }, [props.authenticated]);
+
+  function updateUser(updates) {
+    return API.put("mtgml", "/users", {
+      body: updates
+    });
+  }
 
   function dismiss() {
+    localStorage.setItem('editProfVis', 'false');
     setIsVisable(false);
   }
 
@@ -81,10 +91,22 @@ export default function ChangeEmail(props) {
     event.preventDefault();
 
     setIsConfirming(true);
-    setIsVisable(true);
     try {
       await Auth.verifyCurrentUserAttributeSubmit("email", fields.code);
-      setIsVisable(true);
+
+      const _ = await updateUser({
+        'email': userEmail
+      });
+
+      var newUserData = props.authenticated.data;
+      newUserData.email = userEmail;
+
+      props.userHasAuthenticated({
+        'auth':props.authenticated.auth,
+        'data':newUserData,
+        'profileURL':props.authenticated.profileURL});
+
+      localStorage.setItem('editProfVis', 'true');
     } catch (e) {
       alert(e.message);
       setIsConfirming(false);

@@ -31,16 +31,26 @@ import ChangeEmail from "../containers/ChangeEmail";
 import ChangePassword from "../containers/ChangePassword";
 
 export default function EditUserProfile(props) {
+  const [generalVis, setGeneralVis] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const file = useRef(null);
   const [fields, handleFieldChange] = useFormFields({
     userName: props.authenticated.data.userName,
     arenaName: props.authenticated.data.arenaName
   });
   const [profilePic, setProfilePic] = useState(props.authenticated.profileURL);
-  const [generalVis, setGeneralVis] = useState(false);
+  localStorage.setItem('editProfVis', 'false');
+
+
+  useEffect(() => {
+    setGeneralVis((localStorage.getItem('editProfVis') == 'true'));
+
+    setIsLoading(false);
+  }, [props.authenticated]);
 
 
   function dismiss() {
+    localStorage.setItem('editProfVis', 'false');
     setGeneralVis(false);
   }
 
@@ -70,9 +80,7 @@ export default function EditUserProfile(props) {
     try {
       const profilePicKey = file.current
         ? await s3Upload(file.current)
-        : null;
-
-      console.log('profilePicKey from S3: ' + profilePicKey);
+        : props.authenticated.data.profilePic;
 
       const _ = await updateUser({
         'userName': fields.userName,
@@ -80,13 +88,16 @@ export default function EditUserProfile(props) {
         'profilePic': profilePicKey
       });
 
-      setGeneralVis(true);
+      var newUserData = props.authenticated.data;
+      newUserData.userName = fields.userName;
+      newUserData.arenaName = fields.arenaName;
 
-      // UPDATE THIS
-      //props.userHasAuthenticated({
-      //  'auth':props.authenticated.auth,
-      //  'data':props.authenticated.data,
-      //  'profileURL':profilePic});
+      props.userHasAuthenticated({
+        'auth':props.authenticated.auth,
+        'data':newUserData,
+        'profileURL':profilePic});
+
+      localStorage.setItem('editProfVis', 'true');
     } catch (e) {
       alert(e);
     }
@@ -103,7 +114,6 @@ export default function EditUserProfile(props) {
               <CardBody className="p-0">
 
                 {/* Form Section Title :: General */}
-
                 <Container fluid className="px-0">
                   <Alert theme="success" className="mb-0"
                          dismissible={dismiss}
@@ -112,6 +122,7 @@ export default function EditUserProfile(props) {
                   </Alert>
                 </Container>
 
+                {!isLoading && (
                 <Form className="py-4" onSubmit={handleGeneralSubmit}>
                   <FormSectionTitle
                     title="Change Profile"
@@ -156,8 +167,7 @@ export default function EditUserProfile(props) {
                       </Button>
                     </Col>
 
-
-                    {/* User Profile Picture */}
+                    {/* Profile Picture */}
                     <Col lg="4">
                       <label
                         htmlFor="userProfilePicture"
@@ -165,11 +175,12 @@ export default function EditUserProfile(props) {
                       >
                         Profile Picture
                       </label>
+
                       <div className="edit-user-details__avatar m-auto">
-                      <img
-                        src={profilePic || require("../images/favicon.ico")}
-                        alt="User Avatar"
-                      />
+                        <img
+                          src={profilePic || require("../images/favicon.ico")}
+                          alt="User Avatar"
+                        />
                         <label className="edit-user-details__avatar__change">
                           <i className="material-icons mr-1">&#xE439;</i>
                           <FormInput
@@ -180,20 +191,10 @@ export default function EditUserProfile(props) {
                           />
                         </label>
                       </div>
-                      {/*
-                      <Button
-                        size="sm"
-                        theme="white"
-                        className="d-table mx-auto mt-4"
-                      >
-                        <i className="material-icons">&#xE2C3;</i> Upload
-                        Image
-                      </Button>
-                    */}
-
                     </Col>
                   </Row>
                 </Form>
+              )}
 
                 <hr />
 
@@ -207,7 +208,7 @@ export default function EditUserProfile(props) {
                   </Col>
                 </Row>
 
-                <ChangeEmail></ChangeEmail>
+                <ChangeEmail {...props}></ChangeEmail>
 
                 <hr />
 
@@ -222,7 +223,7 @@ export default function EditUserProfile(props) {
                   </Col>
                 </Row>
 
-                <ChangePassword></ChangePassword>
+                <ChangePassword {...props}></ChangePassword>
 
               </CardBody>
               <CardFooter></CardFooter>
