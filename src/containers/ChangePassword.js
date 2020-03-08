@@ -20,7 +20,7 @@ export default function ChangePassword(props) {
   function validateForm() {
     return (
       fields.oldPassword.length > 0 &&
-      fields.password.length > 0 &&
+      fields.password.length > 11 &&
       fields.password === fields.confirmPassword
     );
   }

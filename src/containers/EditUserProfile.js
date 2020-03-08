@@ -218,7 +218,7 @@ export default function EditUserProfile(props) {
                   <Col className="mb-3">
                     <h6 className="form-text m-0">Change Password</h6>
                     <p className="form-text text-muted m-0">
-                      Change your current password.
+                      Change your current password. Must be <b>at least 12 characters</b>.
                     </p>
                   </Col>
                 </Row>

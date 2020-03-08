@@ -1,48 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Card, CardBody, Row, Col, CardFooter, Progress } from "shards-react";
+import { API } from "aws-amplify";
 
-const UserStats = ({ smallStats }) => (
-  <Card small className="user-stats mb-4">
-    <CardBody>
-      <Row>
-        {smallStats.map((stat, idx) => (
-          <Col key={idx} lg="3" md="6" sm="3" className="text-center">
-            <h4 className="m-0">{stat.value}</h4>
-            <span className="text-light text-uppercase">{stat.title}</span>
+export default function UserStats({ smallStats }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [numDecks, setNumDecks] = useState(null);
+  const [numCreated, setNumCreated] = useState(1);
+  const [numLoaded, setNumLoaded] = useState(1);
+
+  useEffect(() => {
+    async function onLoad() {
+      const decks = await loadDecks();
+      setNumDecks(decks.length);
+      setNumCreated(1);
+      setNumLoaded(1);
+
+      setIsLoading(false);
+    }
+
+    onLoad();
+  }, []);
+
+  function loadDecks() {
+    return API.get("mtgml", "/decks");
+  }
+
+  return (
+    !isLoading && (
+    <Card small className="user-stats mb-4">
+      <CardBody>
+        <Row>
+          <Col sm={{ size: 8, order: 2, offset: 2 }} className="text-center">
+            <h4 className="m-0">{numDecks}</h4>
+            <span className="text-light text-uppercase">Number of Decks</span>
           </Col>
-        ))}
-      </Row>
-    </CardBody>
-    <CardFooter className="py-0">
-      <Row>
-        {/* Progress :: Workload */}
-        <Col sm="12" md="6" className="border-top pb-3 pt-2 border-right">
-          <div className="progress-wrapper">
-            <div className="progress-label">Workload</div>
-            <Progress className="progress-sm" value="80" striped>
-              <span className="progress-value">80%</span>
-            </Progress>
-          </div>
-        </Col>
-        {/* Progress :: Performance */}
-        <Col sm="12" md="6" className="border-top pb-3 pt-2">
-          <div className="progress-wrapper">
-            <div className="progress-label">Performance</div>
-            <Progress
-              className="progress-sm"
-              theme="success"
-              value="92"
-              striped
-            >
-              <span className="progress-value">92%</span>
-            </Progress>
-          </div>
-        </Col>
-      </Row>
-    </CardFooter>
-  </Card>
-);
+        </Row>
+      </CardBody>
+      <CardFooter className="py-0">
+        <Row>
+          <Col sm="12" md="6" className="border-top pb-3 pt-2 border-right">
+            <div className="progress-wrapper">
+              <div className="progress-label">Created</div>
+              <Progress
+                className="progress-sm"
+                theme="success"
+                value={`${(numCreated/numDecks)*100}`}
+                striped
+              >
+                <span className="progress-value">{`${(numCreated/numDecks)*100}%`}</span>
+              </Progress>
+            </div>
+          </Col>
+          <Col sm="12" md="6" className="border-top pb-3 pt-2">
+            <div className="progress-wrapper">
+              <div className="progress-label">Uploaded</div>
+              <Progress
+                className="progress-sm"
+                theme="primary"
+                value={`${(numLoaded/numDecks)*100}`}
+                striped
+              >
+                <span className="progress-value">{`${(numLoaded/numDecks)*100}`}</span>
+              </Progress>
+            </div>
+          </Col>
+        </Row>
+      </CardFooter>
+    </Card>
+    )
+  );
+}
 
 UserStats.propTypes = {
   /**
@@ -60,16 +88,6 @@ UserStats.defaultProps = {
     {
       title: "Completed",
       value: "72.4%"
-    },
-    {
-      title: "Projects",
-      value: "4"
-    },
-    {
-      title: "Teams",
-      value: "3"
     }
   ]
 };
-
-export default UserStats;

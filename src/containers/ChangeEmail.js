@@ -15,11 +15,11 @@ export default function ChangeEmail(props) {
   const [emailVerified, setEmailVerified] = useState(true);
   const [userEmail, setUserEmail] = useState("");
   const [isVisable, setIsVisable] = useState(false);
-  localStorage.setItem('editProfVis', 'false');
+  localStorage.setItem('editEmailVis', 'false');
 
   useEffect(() => {
     async function onLoad() {
-      setIsVisable((localStorage.getItem('editProfVis') == 'true'));
+      setIsVisable((localStorage.getItem('editEmailVis') == 'true'));
 
       try {
         const user = await Auth.currentUserInfo();
@@ -44,7 +44,7 @@ export default function ChangeEmail(props) {
   }
 
   function dismiss() {
-    localStorage.setItem('editProfVis', 'false');
+    localStorage.setItem('editEmailVis', 'false');
     setIsVisable(false);
   }
 
@@ -106,7 +106,7 @@ export default function ChangeEmail(props) {
         'data':newUserData,
         'profileURL':props.authenticated.profileURL});
 
-      localStorage.setItem('editProfVis', 'true');
+      localStorage.setItem('editEmailVis', 'true');
     } catch (e) {
       alert(e.message);
       setIsConfirming(false);
@@ -150,7 +150,7 @@ export default function ChangeEmail(props) {
               <FormInput
                 id="email"
                 type="email"
-                placeholder="New Email"
+                placeholder={userEmail}
                 value={fields.email}
                 onChange={handleFieldChange}
               />

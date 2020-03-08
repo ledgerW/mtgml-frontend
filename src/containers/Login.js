@@ -34,11 +34,24 @@ export default function Login(props) {
     event.preventDefault();
 
     try {
+      let profileURL = null;
       await Auth.signIn(fields.email, fields.password);
 
       const data = await loadUser(fields.email);
 
-      props.userHasAuthenticated({'auth':true, 'data':data});
+      if (data.profilePic) {
+        profileURL = await Storage.vault.get(data.profilePic);
+        profileURL = await fetch(profileURL)
+          .then(resp => resp.blob())
+          .then(blob => {
+            return URL.createObjectURL(blob);
+          });
+      }
+
+      props.userHasAuthenticated({
+        'auth':true,
+        'data':data,
+        'profileURL':profileURL});
 
 
     } catch (e) {
