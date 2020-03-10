@@ -16,11 +16,11 @@ function DefaultLayout({ children, noNavbar, noFooter, authenticated, userHasAut
       <Row>
         {authenticated.auth && <MainSidebar />}
         <Col
-          className="main-content p-0"
-          lg={{ size: 10, offset: 2 }}
-          md={{ size: 9, offset: 3 }}
-          sm="12"
-          tag="main"
+        className="main-content p-0"
+        lg={authenticated.auth && { size: 10, offset: 2 }}
+        md={authenticated.auth && { size: 9, offset: 3 }}
+        sm={authenticated.auth && "12"}
+        tag="main"
         >
           {!noNavbar && <MainNavbar authenticated={authenticated} userHasAuthenticated={userHasAuthenticated} userData={userData} setUserData={setUserData}/>}
           {children}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, ListGroupItem, ListGroupItemHeading } from "shards-react";
-import { LinkContainer } from "react-router-bootstrap";
+import { ListGroup, ListGroupItem, ListGroupItemHeading, Button } from "shards-react";
+import { Jumbotron } from "react-bootstrap";
+import { LinkContainer, Link } from "react-router-bootstrap";
 import { API } from "aws-amplify";
 import { isAuthenticated } from "../libs/sessionLib";
 import { Store } from "../flux";
@@ -63,12 +64,12 @@ export default function Home(props) {
       return (
         <Container fluid className="main-content-container h-100 px-4">
           <Row noGutters className="h-100">
-            <Col lg="3" md="5" className="auth-form mx-auto my-auto">
-              <div>
+            <Col lg={{ size: 8, offset: 2 }} md={{ size: 8, offset: 2 }}>
+              <Jumbotron className='text-center'>
                 <h1>MagicML</h1>
                 <p>Understand your deck.</p>
-                <p>Make it better.</p>
-              </div>
+                <Button size="lg" href="/signup">Sign Up</Button>
+              </Jumbotron>
             </Col>
           </Row>
         </Container>
