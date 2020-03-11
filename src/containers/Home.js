@@ -44,7 +44,7 @@ export default function Home(props) {
       i !== 0 ? (
         <LinkContainer key={deck.deckId} to={`/decks/${deck.deckId}`}>
           <ListGroupItem>
-            <ListGroupItemHeading>{deck.content.trim().split("\n")[0]}</ListGroupItemHeading>
+            <ListGroupItemHeading>{deck.name ? deck.name.trim().split("\n")[0] : "Untitled Deck"}</ListGroupItemHeading>
             {"Created: " + new Date(deck.createdAt).toLocaleString()}
           </ListGroupItem>
         </LinkContainer>
