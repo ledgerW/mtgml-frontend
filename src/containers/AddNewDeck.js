@@ -120,10 +120,9 @@ export default function AddNewDeck(props) {
                     id="deckFile"
                     type="file"
                     className="custom-file-input"
-                    id="customFile2"
                     onChange={handleFileChange}
                   />
-                  <label className="custom-file-label" htmlFor="customFile2">
+                  <label className="custom-file-label" htmlFor="deckFile">
                     {fileName}
                   </label>
                 </div>
