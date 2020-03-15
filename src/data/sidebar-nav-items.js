@@ -22,7 +22,7 @@ export default function () {
   {
     title: 'Card Market',
     items: [{
-      title: 'Portfoio',
+      title: 'Portfolio',
       htmlBefore: '<i class="material-icons">&#xE889;</i>',
       to: '/portfolio',
     }, {

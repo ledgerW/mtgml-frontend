@@ -64,11 +64,11 @@ export default function Home(props) {
                 </Badge>
                 <div className="card-post__author d-flex">
                   <a
-                    href="#"
+                    href="/profile"
                     className="card-post__author-avatar card-post__author-avatar--small"
                     style={{ backgroundImage: `url('${props.authenticated.profileURL}')` }}
                   >
-                    Written by {props.authenticated.userName}
+                    {props.authenticated.userName}
                   </a>
                 </div>
               </div>
@@ -87,16 +87,17 @@ export default function Home(props) {
           <Col lg="3" md="6" sm="12" className="mb-4" key="new">
             <Card small className="card-post card-post--1">
               <div
+                href="/decks/new"
                 className="card-post__image"
-                style={{ backgroundImage: `url(${require("../images/content-management/1.jpeg")})` }}
+                style={{ backgroundImage: `url(${require("../images/mstile-150x150.png")})` }}
               >
                 <div className="card-post__author d-flex">
                   <a
-                    href="#"
+                    href="/profile"
                     className="card-post__author-avatar card-post__author-avatar--small"
                     style={{ backgroundImage: `url('${props.authenticated.profileURL}')` }}
                   >
-                    Written by {props.authenticated.userName}
+                    {props.authenticated.userName}
                   </a>
                 </div>
               </div>
@@ -139,7 +140,7 @@ export default function Home(props) {
         <Container fluid className="main-content-container px-4">
           {/* Page Header */}
           <Row noGutters className="page-header py-4">
-            <PageTitle sm="4" title="Blog Posts" subtitle="Components" className="text-sm-left" />
+            <PageTitle sm="4" title="My Decks" subtitle="Decks" className="text-sm-left" />
           </Row>
           {!isLoading && renderDecksList(decks)}
         </Container>
