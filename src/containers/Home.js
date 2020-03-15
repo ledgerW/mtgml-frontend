@@ -8,8 +8,14 @@ import { Store } from "../flux";
 import {
   Container,
   Row,
-  Col
+  Col,
+  Card,
+  CardBody,
+  CardFooter,
+  Badge
 } from "shards-react";
+
+import PageTitle from "../components/common/PageTitle";
 
 
 export default function Home(props) {
@@ -40,25 +46,75 @@ export default function Home(props) {
   }
 
   function renderDecksList(decks) {
-    return [{}].concat(decks).map((deck, i) =>
-      i !== 0 ? (
-        <LinkContainer key={deck.deckId} to={`/decks/${deck.deckId}`}>
-          <ListGroupItem>
-            <ListGroupItemHeading>{deck.name ? deck.name.trim().split("\n")[0] : "Untitled Deck"}</ListGroupItemHeading>
-            {"Created: " + new Date(deck.createdAt).toLocaleString()}
-          </ListGroupItem>
-        </LinkContainer>
-      ) : (
-        <LinkContainer key="new" to="/decks/new">
-          <ListGroupItem>
-            <h4>
-              <b>{"\uFF0B"}</b> Add a new deck
-            </h4>
-          </ListGroupItem>
-        </LinkContainer>
-      )
-    );
-  }
+    return (
+      <Row>
+        {[{}].concat(decks).map((deck, i) =>
+          i !== 0 ? (
+          <Col lg="3" md="6" sm="12" className="mb-4" key={deck.deckId}>
+            <Card small className="card-post card-post--1">
+              <div
+                className="card-post__image"
+                style={{ backgroundImage: `url(${require("../images/content-management/1.jpeg")})` }}
+              >
+                <Badge
+                  pill
+                  className="card-post__category bg-Business"
+                >
+                  {deck.name}
+                </Badge>
+                <div className="card-post__author d-flex">
+                  <a
+                    href="#"
+                    className="card-post__author-avatar card-post__author-avatar--small"
+                    style={{ backgroundImage: `url('${props.authenticated.profileURL}')` }}
+                  >
+                    Written by {props.authenticated.userName}
+                  </a>
+                </div>
+              </div>
+              <CardBody>
+                <h5 className="card-title">
+                  <a href={`/decks/${deck.deckId}`} className="text-fiord-blue">
+                    {deck.name ? deck.name.trim().split("\n")[0] : "Untitled Deck"}
+                  </a>
+                </h5>
+                <p className="card-text d-inline-block mb-3"></p>
+                <span className="text-muted">{new Date(deck.createdAt).toLocaleString()}</span>
+              </CardBody>
+            </Card>
+          </Col>
+        ) : (
+          <Col lg="3" md="6" sm="12" className="mb-4" key="new">
+            <Card small className="card-post card-post--1">
+              <div
+                className="card-post__image"
+                style={{ backgroundImage: `url(${require("../images/content-management/1.jpeg")})` }}
+              >
+                <div className="card-post__author d-flex">
+                  <a
+                    href="#"
+                    className="card-post__author-avatar card-post__author-avatar--small"
+                    style={{ backgroundImage: `url('${props.authenticated.profileURL}')` }}
+                  >
+                    Written by {props.authenticated.userName}
+                  </a>
+                </div>
+              </div>
+              <CardBody>
+                <h5 className="card-title">
+                  <a href="/decks/new" className="text-fiord-blue">
+                    Add New Deck
+                  </a>
+                </h5>
+                <p className="card-text d-inline-block mb-3"></p>
+              </CardBody>
+            </Card>
+          </Col>
+      ))}
+      </Row>
+      );
+    }
+
 
   function renderLander() {
       return (
@@ -76,13 +132,17 @@ export default function Home(props) {
       );
     }
 
+
   function renderDecks() {
     return (
       <div>
-        <h1>Your Decks</h1>
-        <ListGroup>
+        <Container fluid className="main-content-container px-4">
+          {/* Page Header */}
+          <Row noGutters className="page-header py-4">
+            <PageTitle sm="4" title="Blog Posts" subtitle="Components" className="text-sm-left" />
+          </Row>
           {!isLoading && renderDecksList(decks)}
-        </ListGroup>
+        </Container>
       </div>
     );
   }
