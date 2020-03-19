@@ -48,8 +48,7 @@ export default function TopReferrals({props, deck}) {
         open={show}
         target={`#${cardTarget}`}
       >
-        <Image src="https://img.scryfall.com/cards/normal/front/0/3/0369c057-1c15-4129-936b-e8231d852e20.jpg?1562895678" thumbnail />
-        {deck.cards[parseInt(cardTarget.match(/\d+/))].name}
+        <Image src={deck.cards_data[parseInt(cardTarget.match(/\d+/))].image_uris.M.border_crop.S} thumbnail />
       </Popover>
       )}
 
