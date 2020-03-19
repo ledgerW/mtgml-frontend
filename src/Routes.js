@@ -59,7 +59,9 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/file_manager_cards" exact comps={{layout: DefaultLayout, container: FileManagerCards}} appProps={appProps} />
       <AuthenticatedRoute path="/transaction_history" exact comps={{layout: DefaultLayout, container: TransactionHistory}} appProps={appProps} />
       {/*Decks*/}
-      <AuthenticatedRoute path="/analyze" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
+      <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: AddNewDeck}} appProps={appProps} />
+      <AuthenticatedRoute path="/decks/update/:id" exact comps={{layout: DefaultLayout, container: Decks}} appProps={appProps} />
+      <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
       <AuthenticatedRoute path="/compare" exact comps={{layout: DefaultLayout, container: OnlineStore}} appProps={appProps} />
       <AuthenticatedRoute path="/build" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       {/*Card Market*/}
@@ -70,8 +72,6 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/manage_decks" exact comps={{layout: DefaultLayout, container: Home}} appProps={appProps} />
       <AuthenticatedRoute path="/manage_cards" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
-      <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: AddNewDeck}} appProps={appProps} />
-      <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Decks}} appProps={appProps} />
       <AuthenticatedRoute path="/tables" exact comps={{layout: DefaultLayout, container: Tables}} appProps={appProps} />
       { /* Finally, catch all unmatched routes */ }
       <AppliedRoute comps={{layout: DefaultLayout, container: Errors}} appProps={appProps} />

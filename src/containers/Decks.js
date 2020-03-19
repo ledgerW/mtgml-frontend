@@ -32,8 +32,14 @@ export default function Decks(props) {
   });
 
   useEffect(() => {
-    function loadDeck() {
-      return API.get("mtgml", `/decks/${props.match.params.id}`);
+    function loadDeck(analyze=false) {
+      let httpInit = {
+        queryStringParameters: {
+            analyze: analyze
+        }
+      };
+
+      return API.get("mtgml", `/decks/${props.match.params.id}`, httpInit);
     }
 
     async function onLoad() {

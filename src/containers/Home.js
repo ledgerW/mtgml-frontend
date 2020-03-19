@@ -3,7 +3,6 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading, Button } from "shards-r
 import { Jumbotron } from "react-bootstrap";
 import { LinkContainer, Link } from "react-router-bootstrap";
 import { API } from "aws-amplify";
-import { isAuthenticated } from "../libs/sessionLib";
 import { Store } from "../flux";
 import {
   Container,

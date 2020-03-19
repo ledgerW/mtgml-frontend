@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { API, Storage } from "aws-amplify";
 import PropTypes from "prop-types";
 import { Container, Row, Col, Button, ButtonGroup } from "shards-react";
 import { NavLink } from "react-router-dom";
@@ -14,81 +15,199 @@ import GoalsOverview from "../components/analytics/GoalsOverview/GoalsOverview";
 
 import colors from "../utils/colors";
 
-const Analytics = ({ smallStats }) => (
-  <Container fluid className="main-content-container px-4">
-    <Row noGutters className="page-header py-4">
-      {/* Page Header :: Title */}
-      <PageTitle title="Analytics" subtitle="Overview" className="text-sm-left mb-3" />
+export default function Analytics(props) {
+  const [deck, setDeck] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-      {/* Page Header :: Actions */}
-      <Col xs="12" sm="4" className="col d-flex align-items-center">
-        <ButtonGroup size="sm" className="d-inline-flex mb-3 mb-sm-0 mx-auto">
-          <Button theme="white" tag={NavLink} to="/analytics">
-            Traffic
-          </Button>
-          <Button theme="white" tag={NavLink} to="/ecommerce">
-            Sales
-          </Button>
-        </ButtonGroup>
-      </Col>
+  useEffect(() => {
+    function loadDeck(analyze=false) {
+      let httpInit = {
+        queryStringParameters: {
+            analyze: analyze
+        }
+      };
 
-      {/* Page Header :: Datepicker */}
-      <Col sm="4" className="d-flex">
-        <RangeDatePicker className="justify-content-end" />
-      </Col>
-    </Row>
+      return API.get("mtgml", `/decks/${props.match.params.id}`, httpInit);
+    }
 
-    {/* Small Stats Blocks */}
-    <Row>
-      {smallStats.map((stats, idx) => (
-        <Col key={idx} md="6" lg="3" className="mb-4">
-          <SmallStats
-            id={`small-stats-${idx}`}
-            chartData={stats.datasets}
-            chartLabels={stats.chartLabels}
-            label={stats.label}
-            value={stats.value}
-            percentage={stats.percentage}
-            increase={stats.increase}
-            decrease={stats.decrease}
-          />
+    async function onLoad() {
+      try {
+        const deck = await loadDeck(true);
+        const { name, cards } = deck;
+
+        setDeck(deck);
+      } catch (e) {
+        alert(e);
+      }
+
+      setIsLoading(true);
+    }
+
+    onLoad();
+  }, [props.match.params.id]);
+
+  return (
+    <div>
+    {isLoading && (
+    <Container fluid className="main-content-container px-4">
+      <Row noGutters className="page-header py-4">
+        {/* Page Header :: Title */}
+        <PageTitle title="Analyze" subtitle="Decks" className="text-sm-left mb-3" />
+
+        {/* Page Header :: Actions */}
+        <Col xs="12" sm="4" className="col d-flex align-items-center">
+          <ButtonGroup size="sm" className="d-inline-flex mb-3 mb-sm-0 mx-auto">
+            <Button theme="white" tag={NavLink} to="/analytics">
+              Traffic
+            </Button>
+            <Button theme="white" tag={NavLink} to="/ecommerce">
+              Sales
+            </Button>
+          </ButtonGroup>
         </Col>
-      ))}
-    </Row>
 
-    <Row>
-      {/* Sessions */}
-      <Col lg="8" md="12" sm="12" className="mb-4">
-        <Sessions />
-      </Col>
+        {/* Page Header :: Datepicker */}
+        <Col sm="4" className="d-flex">
+          <RangeDatePicker className="justify-content-end" />
+        </Col>
+      </Row>
 
-      {/* Users by Device */}
-      <Col lg="4" md="6" sm="6" className="mb-4">
-        <UsersByDevice />
-      </Col>
+      <Row>
+        <Col lg="3" md="6" sm="12" className="mb-4">
+          <TopReferrals props={props} deck={deck}/>
+        </Col>
 
-      {/* Top Referrals */}
-      <Col lg="3" sm="6" className="mb-4">
-        <TopReferrals />
-      </Col>
+        <Col className="mb-4">
+          <Row>
+            {smallStats.map((stats, idx) => (
+              <Col key={idx} className="mb-4">
+                <SmallStats
+                  id={`small-stats-${idx}`}
+                  chartData={stats.datasets}
+                  chartLabels={stats.chartLabels}
+                  label={stats.label}
+                  value={stats.value}
+                  percentage={stats.percentage}
+                  increase={stats.increase}
+                  decrease={stats.decrease}
+                />
+              </Col>
+            ))}
+          </Row>
 
-      {/* Goals Overview */}
-      <Col lg="5" className="mb-4">
-        <GoalsOverview />
-      </Col>
+          <Row>
+            <Col className="mb-4">
+              <Sessions />
+            </Col>
+          </Row>
 
-      {/* Country Reports */}
-      <Col lg="4" className="mb-4">
-        <CountryReports />
-      </Col>
-    </Row>
-  </Container>
-);
+          <Row>
+            <Col className="mb-4">
+              <UsersByDevice />
+            </Col>
 
+            <Col className="mb-4">
+              <GoalsOverview />
+            </Col>
+          </Row>
+
+          {/*
+          <Row>
+            <Col lg="8" className="mb-4">
+              <CountryReports />
+            </Col>
+          </Row>
+          */}
+
+        </Col>
+      </Row>
+    </Container>
+    )}
+    </div>
+  );
+}
+
+
+const smallStats = [
+  {
+    label: "Users",
+    value: "2,390",
+    percentage: "12.4%",
+    increase: true,
+    chartLabels: [null, null, null, null, null],
+    decrease: false,
+    datasets: [
+      {
+        label: "Today",
+        fill: "start",
+        borderWidth: 1.5,
+        backgroundColor: colors.primary.toRGBA(0.1),
+        borderColor: colors.primary.toRGBA(),
+        data: [9, 3, 3, 9, 9]
+      }
+    ]
+  },
+  {
+    label: "Sessions",
+    value: "8,391",
+    percentage: "7.21%",
+    increase: false,
+    chartLabels: [null, null, null, null, null],
+    decrease: true,
+    datasets: [
+      {
+        label: "Today",
+        fill: "start",
+        borderWidth: 1.5,
+        backgroundColor: colors.success.toRGBA(0.1),
+        borderColor: colors.success.toRGBA(),
+        data: [3.9, 4, 4, 9, 4]
+      }
+    ]
+  },
+  {
+    label: "Pageviews",
+    value: "21,293",
+    percentage: "3.71%",
+    increase: true,
+    chartLabels: [null, null, null, null, null],
+    decrease: false,
+    datasets: [
+      {
+        label: "Today",
+        fill: "start",
+        borderWidth: 1.5,
+        backgroundColor: colors.warning.toRGBA(0.1),
+        borderColor: colors.warning.toRGBA(),
+        data: [6, 6, 9, 3, 3]
+      }
+    ]
+  },
+  {
+    label: "Pages/Session",
+    value: "6.43",
+    percentage: "2.71%",
+    increase: false,
+    chartLabels: [null, null, null, null, null],
+    decrease: true,
+    datasets: [
+      {
+        label: "Today",
+        fill: "start",
+        borderWidth: 1.5,
+        backgroundColor: colors.salmon.toRGBA(0.1),
+        borderColor: colors.salmon.toRGBA(),
+        data: [0, 9, 3, 3, 3]
+      }
+    ]
+  }
+]
+
+/*
 Analytics.propTypes = {
   /**
-   * The small stats data.
-   */
+  /* The small stats data.
+
   smallStats: PropTypes.array
 };
 
@@ -168,5 +287,4 @@ Analytics.defaultProps = {
     }
   ]
 };
-
-export default Analytics;
+*/
