@@ -53,7 +53,7 @@ export default function Home(props) {
             <Card small className="card-post card-post--1">
               <div
                 className="card-post__image"
-                style={{ backgroundImage: `url(${require("../images/content-management/1.jpeg")})` }}
+                style={{ backgroundImage: `url(${deck.display})` }}
               >
                 <Badge
                   pill

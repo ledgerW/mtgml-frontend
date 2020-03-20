@@ -35,12 +35,10 @@ export default function Analytics(props) {
         const deck = await loadDeck(true);
         //cards.sort((a, b) => (a.cardId > b.cardId) ? 1 : (a.color === b.color) ? ((a.size > b.size) ? 1 : -1) : -1 )
         deck.cards = deck.cards.sort((a, b) => (a.cardId > b.cardId) ? 1 : -1);
-        deck.cards_data = deck.cards_data.sort((a, b) => (a.cardId.S > b.cardId.S) ? 1 : -1);
         console.log(deck.cards);
-        console.log(deck.cards_data);
-        const { name, cards, cards_data } = deck;
 
-        //console.log(cards_data[0]);
+        const { name, cards } = deck;
+        
         //console.log(cards_data[0].image_uris.M.small.S);
 
         setDeck(deck);

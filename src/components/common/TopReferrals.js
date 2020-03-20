@@ -48,7 +48,7 @@ export default function TopReferrals({props, deck}) {
         open={show}
         target={`#${cardTarget}`}
       >
-        <Image src={deck.cards_data[parseInt(cardTarget.match(/\d+/))].image_uris.M.border_crop.S} thumbnail />
+        <Image src={deck.cards[parseInt(cardTarget.match(/\d+/))].data.image_uris.border_crop} thumbnail />
       </Popover>
       )}
 
