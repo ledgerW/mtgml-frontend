@@ -118,7 +118,7 @@ export default function Signup(props) {
                 {/* Logo */}
                 <img
                   className="auth-form__logo d-table mx-auto mb-3"
-                  src={require("../images/shards-dashboards-logo.svg")}
+                  src={require("../images/favicon.ico")}
                   alt="Shards Dashboards - Register Template"
                 />
 
@@ -168,7 +168,7 @@ export default function Signup(props) {
                 {/* Logo */}
                 <img
                   className="auth-form__logo d-table mx-auto mb-3"
-                  src={require("../images/shards-dashboards-logo.svg")}
+                  src={require("../images/favicon.ico")}
                   alt="Shards Dashboards - Register Template"
                 />
 

@@ -37,19 +37,19 @@ export default function TopReferrals({props, deck}) {
   return (
     <Card small>
       <CardHeader className="border-bottom">
-        <h6 className="m-0">Deck List</h6>
+        <h6 className="m-0">{deck.name}</h6>
         <div className="block-handle" />
       </CardHeader>
 
       <div id="#init"></div>
       {cardTarget && (
-      <Popover
-        placement="right-start"
-        open={show}
-        target={`#${cardTarget}`}
-      >
-        <Image src={deck.cards[parseInt(cardTarget.match(/\d+/))].data.image_uris.border_crop} thumbnail />
-      </Popover>
+        <Popover
+          placement="right-start"
+          open={show}
+          target={`#${cardTarget}`}
+        >
+          <Image src={deck.cards[parseInt(cardTarget.match(/\d+/))].data.image_uris.border_crop} thumbnail />
+        </Popover>
       )}
 
       <CardBody className="p-0">

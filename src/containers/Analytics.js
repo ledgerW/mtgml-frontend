@@ -34,12 +34,10 @@ export default function Analytics(props) {
       try {
         const deck = await loadDeck(true);
         //cards.sort((a, b) => (a.cardId > b.cardId) ? 1 : (a.color === b.color) ? ((a.size > b.size) ? 1 : -1) : -1 )
-        deck.cards = deck.cards.sort((a, b) => (a.cardId > b.cardId) ? 1 : -1);
+        deck.cards = deck.cards.sort((a, b) => (a.name > b.name) ? 1 : -1);
         console.log(deck.cards);
 
         const { name, cards } = deck;
-        
-        //console.log(cards_data[0].image_uris.M.small.S);
 
         setDeck(deck);
       } catch (e) {
@@ -63,18 +61,10 @@ export default function Analytics(props) {
         {/* Page Header :: Actions */}
         <Col xs="12" sm="4" className="col d-flex align-items-center">
           <ButtonGroup size="sm" className="d-inline-flex mb-3 mb-sm-0 mx-auto">
-            <Button theme="white" tag={NavLink} to="/analytics">
-              Traffic
-            </Button>
-            <Button theme="white" tag={NavLink} to="/ecommerce">
-              Sales
+            <Button theme="white" tag={NavLink} to={`/decks/update/${deck.deckId}`}>
+              Update Deck
             </Button>
           </ButtonGroup>
-        </Col>
-
-        {/* Page Header :: Datepicker */}
-        <Col sm="4" className="d-flex">
-          <RangeDatePicker className="justify-content-end" />
         </Col>
       </Row>
 
@@ -83,7 +73,7 @@ export default function Analytics(props) {
           <TopReferrals props={props} deck={deck}/>
         </Col>
 
-        <Col className="mb-4">
+        <Col lg="9" className="mb-4">
           <Row>
             {smallStats.map((stats, idx) => (
               <Col key={idx} className="mb-4">
@@ -116,15 +106,6 @@ export default function Analytics(props) {
               <GoalsOverview />
             </Col>
           </Row>
-
-          {/*
-          <Row>
-            <Col lg="8" className="mb-4">
-              <CountryReports />
-            </Col>
-          </Row>
-          */}
-
         </Col>
       </Row>
     </Container>
