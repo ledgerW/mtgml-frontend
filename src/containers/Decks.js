@@ -26,10 +26,8 @@ export default function Decks(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [fileName, setFileName] = useState("Choose file...");
-  const [fields, handleFieldChange] = useFormFields({
-    name: null,
-    content: null
-  });
+  const [content, setContent] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     function loadDeck(analyze=false) {
@@ -51,6 +49,8 @@ export default function Decks(props) {
           deck.attachmentURL = await Storage.vault.get(attachment);
         }
 
+        setContent(content);
+        setName(name);
         setDeck(deck);
       } catch (e) {
         alert(e);
@@ -61,7 +61,7 @@ export default function Decks(props) {
   }, [props.match.params.id]);
 
 function validateForm() {
-  return true;
+  return content.length > 0 && name.length > 0;
 }
 
 function formatFilename(str) {
@@ -99,15 +99,12 @@ async function handleSubmit(event) {
       attachment = await s3Upload(file.current);
     }
 
-    const content = fields.content ? fields.content : deck.content;
-    const name = fields.name ? fields.name : deck.name;
-
     await saveDeck({
       name,
       content,
       attachment: attachment || deck.attachment
     });
-    props.history.push("/");
+    props.history.push(`/decks/${deck.deckId}`);
   } catch (e) {
     alert(e);
     setIsLoading(false);
@@ -133,7 +130,7 @@ async function handleDelete(event) {
 
   try {
     await deleteDeck();
-    props.history.push("/");
+    props.history.push('/');
   } catch (e) {
     alert(e);
     setIsDeleting(false);
@@ -157,14 +154,14 @@ return (
                 id='name'
                 size="lg"
                 className="mb-3"
-                value={fields.name ? fields.name : deck.name}
-                onChange={handleFieldChange}
+                value={name}
+                onChange={e => setName(e.target.value)}
               />
               <FormTextarea
                 id="content"
                 className="add-new-post__editor mb-1"
-                value={fields.content ? fields.content : deck.content}
-                onChange={handleFieldChange}
+                value={content}
+                onChange={e => setContent(e.target.value)}
               />
             </CardBody>
           </Card>
@@ -212,7 +209,7 @@ return (
               size="lg"
               theme="primary"
               isLoading={isLoading}
-              disabled={!validateForm()}
+              disabled={!validateForm() || isLoading}
             >
               Save
             </Button>
@@ -224,6 +221,7 @@ return (
               theme="danger"
               onClick={handleDelete}
               isLoading={isDeleting}
+              disabled={isDeleting}
             >
               Delete
             </Button>

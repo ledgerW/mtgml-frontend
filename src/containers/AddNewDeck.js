@@ -135,7 +135,7 @@ export default function AddNewDeck(props) {
                 size="lg"
                 theme="primary"
                 isLoading={isLoading}
-                disabled={!validateForm()}
+                disabled={!validateForm() || isLoading}
               >
                 Create
               </Button>
