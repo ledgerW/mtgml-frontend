@@ -8,7 +8,7 @@ import UsersOverview from "./../components/blog/UsersOverview";
 import UsersByDevice from "./../components/blog/UsersByDevice";
 import NewDraft from "./../components/blog/NewDraft";
 import Discussions from "./../components/blog/Discussions";
-import TopReferrals from "./../components/common/TopReferrals";
+import DeckList from "./../components/common/DeckList";
 
 const BlogOverview = ({ smallStats }) => (
   <Container fluid className="main-content-container px-4">
@@ -61,7 +61,7 @@ const BlogOverview = ({ smallStats }) => (
 
       {/* Top Referrals */}
       <Col lg="3" md="12" sm="12" className="mb-4">
-        <TopReferrals />
+        {/*<DeckList props={props} deck={deck}/>*/}
       </Col>
     </Row>
   </Container>

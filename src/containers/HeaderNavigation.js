@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import PageTitle from "../components/common/PageTitle";
 import RangeDatePicker from "../components/common/RangeDatePicker";
 import SmallStats from "../components/common/SmallStats";
-import TopReferrals from "../components/common/TopReferrals";
+import DeckList from "../components/common/DeckList";
 import CountryReports from "../components/common/CountryReports";
 import Sessions from "../components/analytics/Sessions";
 import UsersByDevice from "../components/analytics/UsersByDevice";
@@ -64,7 +64,7 @@ const HeaderNavigation = ({ smallStats }) => (
 
       {/* Top Referrals */}
       <Col lg="3" sm="6" className="mb-4">
-        <TopReferrals />
+        {/*<DeckList />*/}
       </Col>
 
       {/* Goals Overview */}

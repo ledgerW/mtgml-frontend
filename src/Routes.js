@@ -6,7 +6,7 @@ import { DefaultLayout, HeaderNavigation, IconSidebar } from "./layouts";
 
 // Route Views
 import Analytics from "./containers/Analytics";
-import OnlineStore from "./containers/OnlineStore";
+import Compare from "./containers/Compare";
 import BlogOverview from "./containers/BlogOverview";
 import UserProfile from "./containers/UserProfile";
 import EditUserProfile from "./containers/EditUserProfile";
@@ -62,11 +62,11 @@ export default function Routes({ appProps }) {
       <AuthenticatedRoute path="/decks/new" exact comps={{layout: DefaultLayout, container: AddNewDeck}} appProps={appProps} />
       <AuthenticatedRoute path="/decks/update/:id" exact comps={{layout: DefaultLayout, container: Decks}} appProps={appProps} />
       <AuthenticatedRoute path="/decks/:id" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
-      <AuthenticatedRoute path="/compare" exact comps={{layout: DefaultLayout, container: OnlineStore}} appProps={appProps} />
+      <AuthenticatedRoute path="/compare" exact comps={{layout: DefaultLayout, container: Compare}} appProps={appProps} />
       <AuthenticatedRoute path="/build" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       {/*Card Market*/}
       <AuthenticatedRoute path="/portfolio" exact comps={{layout: DefaultLayout, container: Analytics}} appProps={appProps} />
-      <AuthenticatedRoute path="/prices" exact comps={{layout: DefaultLayout, container: OnlineStore}} appProps={appProps} />
+      <AuthenticatedRoute path="/prices" exact comps={{layout: DefaultLayout, container: Compare}} appProps={appProps} />
       <AuthenticatedRoute path="/forecast" exact comps={{layout: DefaultLayout, container: BlogOverview}} appProps={appProps} />
       {/*Collection*/}
       <AuthenticatedRoute path="/manage_decks" exact comps={{layout: DefaultLayout, container: Home}} appProps={appProps} />

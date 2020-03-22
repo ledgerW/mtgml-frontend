@@ -7,9 +7,10 @@ import { NavLink } from "react-router-dom";
 import PageTitle from "../components/common/PageTitle";
 import RangeDatePicker from "../components/common/RangeDatePicker";
 import SmallStats from "../components/common/SmallStats";
-import TopReferrals from "../components/common/TopReferrals";
+import DeckList from "../components/common/DeckList";
 import CountryReports from "../components/common/CountryReports";
-import Sessions from "../components/analytics/Sessions";
+//import Sessions from "../components/analytics/Sessions";
+import SalesReport from "../components/ecommerce/SalesReport";
 import UsersByDevice from "../components/analytics/UsersByDevice";
 import GoalsOverview from "../components/analytics/GoalsOverview/GoalsOverview";
 
@@ -17,7 +18,7 @@ import colors from "../utils/colors";
 
 export default function Analytics(props) {
   const [deck, setDeck] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     function loadDeck(analyze=false) {
@@ -35,7 +36,6 @@ export default function Analytics(props) {
         const deck = await loadDeck(true);
         //cards.sort((a, b) => (a.cardId > b.cardId) ? 1 : (a.color === b.color) ? ((a.size > b.size) ? 1 : -1) : -1 )
         deck.cards = deck.cards.sort((a, b) => (a.name > b.name) ? 1 : -1);
-        console.log(deck.cards);
 
         const { name, cards } = deck;
 
@@ -44,7 +44,7 @@ export default function Analytics(props) {
         alert(e);
       }
 
-      setIsLoading(true);
+      setIsLoading(false);
     }
 
     onLoad();
@@ -52,7 +52,7 @@ export default function Analytics(props) {
 
   return (
     <div>
-    {isLoading && (
+    {!isLoading && (
     <Container fluid className="main-content-container px-4">
       <Row noGutters className="page-header py-4">
         {/* Page Header :: Title */}
@@ -70,7 +70,7 @@ export default function Analytics(props) {
 
       <Row>
         <Col lg="3" md="6" sm="12" className="mb-4">
-          <TopReferrals props={props} deck={deck}/>
+          <DeckList props={props} deck={deck}/>
         </Col>
 
         <Col lg="9" className="mb-4">
@@ -93,7 +93,7 @@ export default function Analytics(props) {
 
           <Row>
             <Col className="mb-4">
-              <Sessions />
+              <SalesReport props={props} hist={deck.profile.mana_curve} title={'Mana Curve'} />
             </Col>
           </Row>
 

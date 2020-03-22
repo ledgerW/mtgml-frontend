@@ -13,7 +13,7 @@ import LatestOrders from "../components/ecommerce/LatestOrders";
 
 import colors from "../utils/colors";
 
-const OnlineStore = ({ smallStats }) => (
+const Compare = ({ smallStats }) => (
   <Container fluid className="main-content-container px-4">
     {/* Page Header */}
     <Row noGutters className="page-header py-4">
@@ -81,14 +81,14 @@ const OnlineStore = ({ smallStats }) => (
   </Container>
 );
 
-OnlineStore.propTypes = {
+Compare.propTypes = {
   /**
    * The data for the small stats.
    */
   smallStats: PropTypes.array
 };
 
-OnlineStore.defaultProps = {
+Compare.defaultProps = {
   smallStats: [
     {
       label: "Total Revenue",
@@ -163,4 +163,4 @@ OnlineStore.defaultProps = {
   ]
 };
 
-export default OnlineStore;
+export default Compare;

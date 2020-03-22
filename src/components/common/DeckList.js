@@ -18,7 +18,7 @@ import {
   Tooltip
 } from "shards-react";
 
-export default function TopReferrals({props, deck}) {
+export default function DeckList({props, deck}) {
   const [show, setShow] = useState(false);
   const [cardTarget, setTarget] = useState("id0");
 
