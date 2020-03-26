@@ -12,15 +12,31 @@ import {
 import RangeDatePicker from "../common/RangeDatePicker";
 import Chart from "../../utils/chart";
 
-export default function SalesReport({props, hist, title}) {
+export default function HistogramCard({props, hists, title}) {
   const [isLoading, setIsLoading] = useState(true);
   const legendRef = createRef();
   const canvasRef = createRef();
 
-  console.log(Object.values(hist));
+  const bgColor = ["rgba(153, 202, 255, 1)", "rgba(72, 160, 255, 1)", "rgba(0, 123, 255, 1)"]
+  const boColor = ["rgba(153, 202, 255, 1)", "rgba(72, 160, 255, 1)", "rgba(0, 123, 255, 1)"]
+  const labels = Object.keys(hists[Object.keys(hists)[0]]).slice(1);
+  const datasets = Object.keys(hists).map((key) => (
+    {
+      label: key,
+      fill: "start",
+      data: Object.values(hists[key]).slice(1),
+      backgroundColor: bgColor.pop(),
+      borderColor: boColor.pop(),
+      pointBackgroundColor: "#FFFFFF",
+      pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
+      borderWidth: 1.5
+    }
+  ));
 
   const chartData = {
-    labels: Object.keys(hist).slice(1),
+    labels: labels,
+    datasets: datasets
+    /*
     datasets: [
       {
         label: "All",
@@ -31,7 +47,7 @@ export default function SalesReport({props, hist, title}) {
         pointBackgroundColor: "#FFFFFF",
         pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
         borderWidth: 1.5
-      }/*,
+      },
       {
         label: "Shipping",
         fill: "start",
@@ -68,7 +84,7 @@ export default function SalesReport({props, hist, title}) {
         pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
         borderWidth: 1.5
       }
-    */]
+    ]*/
   };
 
   useEffect(() => {
@@ -135,11 +151,11 @@ export default function SalesReport({props, hist, title}) {
         <Row className="border-bottom py-2 bg-light">
           {/* Time Interval */}
           <Col sm="6" className="col d-flex mb-2 mb-sm-0">
-            <ButtonGroup>
-              <Button theme="white" active>All</Button>
-              <Button theme="white">Creatures</Button>
-              <Button theme="white">Non-Creatures</Button>
+          {Object.keys(hists).map((key) => (
+            <ButtonGroup toggle>
+              <Button type="radio" name="radio" theme="white">{key}</Button>
             </ButtonGroup>
+          ))}
           </Col>
         </Row>
         <div ref={legendRef} />

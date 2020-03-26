@@ -10,7 +10,7 @@ import SmallStats from "../components/common/SmallStats";
 import DeckList from "../components/common/DeckList";
 import CountryReports from "../components/common/CountryReports";
 //import Sessions from "../components/analytics/Sessions";
-import SalesReport from "../components/ecommerce/SalesReport";
+import HistogramCard from "../components/ecommerce/HistogramCard";
 import UsersByDevice from "../components/analytics/UsersByDevice";
 import GoalsOverview from "../components/analytics/GoalsOverview/GoalsOverview";
 
@@ -36,6 +36,14 @@ export default function Analytics(props) {
         const deck = await loadDeck(true);
         //cards.sort((a, b) => (a.cardId > b.cardId) ? 1 : (a.color === b.color) ? ((a.size > b.size) ? 1 : -1) : -1 )
         deck.cards = deck.cards.sort((a, b) => (a.name > b.name) ? 1 : -1);
+        deck.profile.mana_curves = {
+          "All":deck.profile.All_mana_curve,
+          "Creature":deck.profile.Creature_mana_curve,
+          "Non-Creature":deck.profile.NonCreature_mana_curve};
+
+        deck.profile.type_curves = {
+          "All": deck.profile.type_curve
+        }
 
         const { name, cards } = deck;
 
@@ -93,7 +101,13 @@ export default function Analytics(props) {
 
           <Row>
             <Col className="mb-4">
-              <SalesReport props={props} hist={deck.profile.mana_curve} title={'Mana Curve'} />
+              <HistogramCard props={props} hists={deck.profile.mana_curves} title={'Mana Curve'} />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col className="mb-4">
+              <HistogramCard props={props} hists={deck.profile.type_curves} title={'Type Curve'} />
             </Col>
           </Row>
 

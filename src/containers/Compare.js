@@ -7,7 +7,7 @@ import PageTitle from "../components/common/PageTitle";
 import RangeDatePicker from "../components/common/RangeDatePicker";
 import SmallStats from "../components/common/SmallStats";
 import CountryReports from "../components/common/CountryReports";
-import SalesReport from "../components/ecommerce/SalesReport";
+import HistogramCard from "../components/ecommerce/HistogramCard";
 import SalesByCategory from "../components/ecommerce/SalesByCategory";
 import LatestOrders from "../components/ecommerce/LatestOrders";
 
@@ -58,7 +58,7 @@ const Compare = ({ smallStats }) => (
     <Row>
       {/* Sales Report */}
       <Col lg="8" md="12" sm="12" className="mb-4">
-        <SalesReport />
+        <HistogramCard />
       </Col>
 
       {/* Sales by Categories */}
