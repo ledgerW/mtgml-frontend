@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -23,7 +22,7 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: "decks",
+        name: "mtgml",
         endpoint: config.apiGateway.URL,
         region: config.apiGateway.REGION
       },
@@ -32,7 +31,7 @@ Amplify.configure({
 });
 
 ReactDOM.render(
-  <Router>
+  <Router basename="/">
     <App />
   </Router>,
   document.getElementById('root')

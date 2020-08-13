@@ -1,75 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
-import "./App.css";
 import Routes from "./Routes";
-import { LinkContainer } from "react-router-bootstrap";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
+import { loadUser } from "./libs/sessionLib";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/main.scss";
 
 
 function App(props) {
-  const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [newUser, setNewUser] = useState(null);
+  const [authenticated, userHasAuthenticated] = useState({'auth':false, 'data':{}, 'profileURL':null});
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
+    async function onLoad() {
+      let auth = false;
+      let data = {};
+      let profileURL = null;
+
+      try {
+        await Auth.currentSession();
+        auth = true;
+      } catch (e) {
+        auth = false;
+      }
+
+      if (auth) {
+        data = await loadUser();
+      }
+
+      if (data.profilePic) {
+        profileURL = await Storage.vault.get(data.profilePic);
+        profileURL = await fetch(profileURL)
+          .then(resp => resp.blob())
+          .then(blob => {
+            return URL.createObjectURL(blob);
+          });
+      }
+
+      userHasAuthenticated({'auth':auth, 'data':data, 'profileURL':profileURL});
+      setIsLoading(false);
+    }
+
     onLoad();
   }, []);
 
-  async function onLoad() {
-    try {
-      await Auth.currentSession();
-      userHasAuthenticated(true);
-    }
-    catch(e) {
-      if (e !== 'No current user') {
-        alert(e);
-      }
-    }
-
-    setIsAuthenticating(false);
-  }
-
-  async function handleLogout() {
-    await Auth.signOut();
-    userHasAuthenticated(false);
-    props.history.push("/login");
-  }
-
-  return (
-    !isAuthenticating &&
-    <div className="App container">
-      <Navbar fluid collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">MTGML</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {isAuthenticated ? (
-              <>
-                <LinkContainer to="/settings">
-                  <NavItem>Settings</NavItem>
-                </LinkContainer>
-                <NavItem onClick={handleLogout}>Logout</NavItem>
-              </>
-            ) : (
-              <>
-                <LinkContainer to="/signup">
-                  <NavItem>Signup</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/login">
-                  <NavItem>Login</NavItem>
-                </LinkContainer>
-              </>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Routes appProps={{ isAuthenticated, userHasAuthenticated, newUser, setNewUser }} />
+  return (!isLoading && (
+    <div>
+      <Routes appProps={{ authenticated, userHasAuthenticated, userData, setUserData }} />
     </div>
+  )
   );
 }
 

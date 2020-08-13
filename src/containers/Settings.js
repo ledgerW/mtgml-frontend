@@ -1,7 +1,7 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import LoaderButton from "../components/LoaderButton";
-import "./Settings.css";
+//import "./Settings.css";
 
 export default function Settings(props) {
   return (
@@ -22,20 +22,20 @@ export default function Settings(props) {
           Change Password
         </LoaderButton>
       </LinkContainer>
-      <LinkContainer to="/settings/payment">
+      <LinkContainer to="/settings/update_payment">
         <LoaderButton
           block
           bsSize="large"
         >
-          Update Payment
+          Update Payment Information
         </LoaderButton>
       </LinkContainer>
-      <LinkContainer to="/settings/membership">
+      <LinkContainer to="/settings/subscribe">
         <LoaderButton
           block
           bsSize="large"
         >
-          Update Membership Plan
+          Your Subscription
         </LoaderButton>
       </LinkContainer>
     </div>
