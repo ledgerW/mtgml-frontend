@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef, useRef } from "react";
 import {
   Card,
   CardHeader,
@@ -14,80 +14,33 @@ import Chart from "../../utils/chart";
 
 export default function HistogramCard({props, hists, title}) {
   const [isLoading, setIsLoading] = useState(true);
-  const legendRef = createRef();
-  const canvasRef = createRef();
+  const [buttonVal, setButtonVal] = useState(Object.keys(hists)[0]);
+  const legendRef = useRef();
+  const canvasRef = useRef();
 
   const bgColor = ["rgba(153, 202, 255, 1)", "rgba(72, 160, 255, 1)", "rgba(0, 123, 255, 1)"]
   const boColor = ["rgba(153, 202, 255, 1)", "rgba(72, 160, 255, 1)", "rgba(0, 123, 255, 1)"]
-  const labels = Object.keys(hists[Object.keys(hists)[0]]).slice(1);
-  const datasets = Object.keys(hists).map((key) => (
-    {
-      label: key,
-      fill: "start",
-      data: Object.values(hists[key]).slice(1),
-      backgroundColor: bgColor.pop(),
-      borderColor: boColor.pop(),
-      pointBackgroundColor: "#FFFFFF",
-      pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
-      borderWidth: 1.5
-    }
-  ));
 
-  const chartData = {
-    labels: labels,
-    datasets: datasets
-    /*
-    datasets: [
-      {
-        label: "All",
-        fill: "start",
-        data: Object.values(hist).slice(1),
-        backgroundColor: "rgba(0, 123, 255, 1)",
-        borderColor: "rgba(0, 123, 255, 1)",
-        pointBackgroundColor: "#FFFFFF",
-        pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
-        borderWidth: 1.5
-      },
-      {
-        label: "Shipping",
-        fill: "start",
-        data: [
-          55,
-          30,
-          18,
-          22,
-          19,
-          30,
-          22
-        ],
-        backgroundColor: "rgba(72, 160, 255, 1)",
-        borderColor: "rgba(72, 160, 255, 1)",
-        pointBackgroundColor: "#FFFFFF",
-        pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
-        borderWidth: 1.5
-      },
-      {
-        label: "Tax",
-        fill: "start",
-        data: [
-          11,
-          18,
-          22,
-          19,
-          33,
-          29,
-          28
-        ],
-        backgroundColor: "rgba(153, 202, 255, 1)",
-        borderColor: "rgba(153, 202, 255, 1)",
-        pointBackgroundColor: "#FFFFFF",
-        pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
-        borderWidth: 1.5
-      }
-    ]*/
-  };
 
   useEffect(() => {
+    const labels = Object.keys(hists[Object.keys(hists)[0]]).slice(1);
+    const datasets = [
+      {
+        label: buttonVal,
+        fill: "start",
+        data: Object.values(hists[buttonVal]).slice(1),
+        backgroundColor: bgColor.pop(),
+        borderColor: boColor.pop(),
+        pointBackgroundColor: "#FFFFFF",
+        pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
+        borderWidth: 1.5
+      }];
+
+    const chartData = {
+      labels: labels,
+      datasets: datasets
+    };
+
     const chartOptions = {
         legend: false,
         // Uncomment the next line in order to disable the animations.
@@ -117,11 +70,13 @@ export default function HistogramCard({props, hists, title}) {
         }
       };
 
+
     const SalesReportChart = new Chart(canvasRef.current, {
       type: "bar",
       data: chartData,
       options: chartOptions
     });
+
 
     // Generate the chart labels.
     legendRef.current.innerHTML = SalesReportChart.generateLegend();
@@ -138,7 +93,7 @@ export default function HistogramCard({props, hists, title}) {
     SalesReportChart.render();
 
     setIsLoading(false);
-  }, []);
+  }, [buttonVal]);
 
   return (
     <Card small className="h-100">
@@ -149,13 +104,12 @@ export default function HistogramCard({props, hists, title}) {
 
       <CardBody className="pt-0">
         <Row className="border-bottom py-2 bg-light">
-          {/* Time Interval */}
           <Col sm="6" className="col d-flex mb-2 mb-sm-0">
-          {Object.keys(hists).map((key) => (
-            <ButtonGroup toggle>
-              <Button type="radio" name="radio" theme="white">{key}</Button>
+            <ButtonGroup value={buttonVal} onClick={e => setButtonVal(e.target.value)}>
+              {Object.keys(hists).map((key) => (
+                <Button type="radio" theme="white" value={key}>{key}</Button>
+              ))}
             </ButtonGroup>
-          ))}
           </Col>
         </Row>
         <div ref={legendRef} />
